@@ -14,5 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/FoodController','FoodController@index');
+//Route::get('/FoodController','FoodController@index');
 Route::get('/FoodController','FoodController@insert');
+Route::get('/FoodController/{fid}','FoodController@update');
+//Route::get('insert','StudInsertController@insertform');
+//Route::post('create','StudInsertController@insert');
