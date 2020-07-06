@@ -25,3 +25,7 @@ Route::get('/OrdersController/{fid}','OrdersController@show');
 Route::get('/OrdersController/{uname},{fname},{quantity},{price},{amount}','OrdersController@insert');
 Route::put('/OrdersController/{fid}','OrdersController@edit');
 Route::delete('/OrdersController/{fid}','OrdersController@destroy');
+
+
+Route::get('/UserController','UserController@index');
+Route::post('/UserController/{uname},{phone},{loc}','UserController@insert');
