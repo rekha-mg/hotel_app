@@ -14,8 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
-//Route::get('/FoodController','FoodController@index');
-Route::get('/FoodController','FoodController@insert');
-Route::get('/FoodController/{fid}','FoodController@update');
-//Route::get('insert','StudInsertController@insertform');
-//Route::post('create','StudInsertController@insert');
+Route::get('/FoodController','FoodController@index');
+Route::get('/FoodController/{fid}','FoodController@show');
+Route::get('/FoodController/{fname},{price}','FoodController@insert');
+Route::put('/FoodController/{fid}','FoodController@edit');
+Route::delete('/FoodController/{fid}','FoodController@destroy');
+
+Route::get('/OrdersController','OrdersController@index');
+Route::get('/OrdersController/{fid}','OrdersController@show');
+Route::get('/OrdersController/{uname},{fname},{quantity},{price},{amount}','OrdersController@insert');
+Route::put('/OrdersController/{fid}','OrdersController@edit');
+Route::delete('/OrdersController/{fid}','OrdersController@destroy');
