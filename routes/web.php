@@ -14,18 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/FoodController','FoodController@index');
-Route::get('/FoodController/{fid}','FoodController@show');
-Route::get('/FoodController/{fname},{price}','FoodController@insert');
-Route::put('/FoodController/{fid}','FoodController@edit');
-Route::delete('/FoodController/{fid}','FoodController@destroy');
-
+//Route::get('/FoodController','FoodController@index');
+//Route::get('/FoodController/{fid}','FoodController@show');
+Route::get('/newfood/{nm}','FoodController@insert');
+//Route::put('/FoodController/{fid}','FoodController@edit');
+//Route::delete('/FoodController/{fid}','FoodController@destroy');
+//Route::put('user/{id}', 'UserController@update');
 Route::get('/OrdersController','OrdersController@index');
 Route::get('/OrdersController/{fid}','OrdersController@show');
-Route::get('/OrdersController/{uname},{fname},{quantity},{price},{amount}','OrdersController@insert');
+Route::get('/OrdersController1/{uname}/{fname}/{quantity}/{price}/{amount}','OrdersController@insert');
 Route::put('/OrdersController/{fid}','OrdersController@edit');
 Route::delete('/OrdersController/{fid}','OrdersController@destroy');
 
 
 Route::get('/UserController','UserController@index');
-Route::post('/UserController/{uname},{phone},{loc}','UserController@insert');
+Route::get('/UserController/{uname}/{phone}/{location}','UserController@insert');

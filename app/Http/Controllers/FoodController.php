@@ -19,12 +19,13 @@ class FoodController extends Controller
 		print_r($res);
 	}
 
-  public function insert(Request $request) 
+  public function insert($nm) 
   {  
-    $fnamee=$request->input('fname');
-    $prc=$request->input('price');
-    DB::insert('insert into food (fname,price) values(?,?)',[$fnamee,$prc]);
-    echo "Record inserted successfully.<br/>";
+    //print_r($request->input('fname'));
+   // $prc=$request->input('price');Request $request
+   print_r("hello ");
+    //DB::insert('insert into food (fname,price) values(?,?)',[$fnamee,$prc]);
+    //echo "Record inserted successfully.<br/>";
   }
 
   public function show($id)
