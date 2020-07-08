@@ -15,9 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 //Route::get('/FoodController','FoodController@index');
-//Route::get('/FoodController/{fid}','FoodController@show');
-Route::get('/newfood/{nm}','FoodController@insert');
-//Route::put('/FoodController/{fid}','FoodController@edit');
+Route::get('/FoodController/{fid}','FoodController@show');
+Route::get('/newfood/{nm}/{pr}','FoodController@insert');
+//http://127.0.0.1:8000/newfood/parota/70
+Route::put('/itemedit/{nm}/{pr}/{fid}','FoodController@edit');
 //Route::delete('/FoodController/{fid}','FoodController@destroy');
 //Route::put('user/{id}', 'UserController@update');
 Route::get('/OrdersController','OrdersController@index');

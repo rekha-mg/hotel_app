@@ -19,13 +19,13 @@ class FoodController extends Controller
 		print_r($res);
 	}
 
-  public function insert($nm) 
+  public function insert($nm,$pr) 
   {  
     //print_r($request->input('fname'));
    // $prc=$request->input('price');Request $request
-   print_r("hello ");
-    //DB::insert('insert into food (fname,price) values(?,?)',[$fnamee,$prc]);
-    //echo "Record inserted successfully.<br/>";
+  // print_r("hello ".$nm." ".$pr);
+    DB::insert('insert into food (fname,price) values(?,?)',[$nm,$pr]);
+    echo "Record inserted successfully.<br/>";
   }
 
   public function show($id)
@@ -35,12 +35,13 @@ class FoodController extends Controller
     print_r($res);
    }
 
-  public function edit(Request $request,$id) 
+  public function edit($nm,$pr,$id) 
   {
-    $name = $request->input('fname');
-    $prc=$request->input('price');
-    DB::update('update food set fname = ?, price=? where id = ?',[$name,$id,$prc]);
-    echo "Record updated successfully.<br/>";
+   // $name = $request->input('fname');
+   // $prc=$request->input('price');
+    print_r("hello ".$nm." ".$pr);
+   // DB::update('update food set fname = ?, price=? where id = ?',[$nm,$pr,$id]);
+    //echo "Record updated successfully.<br/>";
   }
 
 
