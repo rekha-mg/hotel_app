@@ -40,14 +40,14 @@ class FoodController extends Controller
    // $name = $request->input('fname');
    // $prc=$request->input('price');
     print_r("hello ".$nm." ".$pr);
-   // DB::update('update food set fname = ?, price=? where id = ?',[$nm,$pr,$id]);
-    //echo "Record updated successfully.<br/>";
+   DB::update('update food set fname = ?, price=? where fid = ?',[$nm,$pr,$id]);
+  echo "Record updated successfully.<br/>";
   }
 
 
    public function destroy(Request $request,$id) 
   {
-    DB::delete('delete * from food where id = ?',[$id]);
+    DB::delete('delete  from food where fid = ?',[$id]);
     echo "Record deleted successfully.<br/>";
   }
 } 
