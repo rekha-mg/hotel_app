@@ -1,4 +1,6 @@
 <?php
+//$entityBody = file_get_contents('php://input');
+
 
 namespace App\Http\Controllers;
 
@@ -6,7 +8,8 @@ use Illuminate\Http\Request;
 use App\food;
 use DB;
 class OrdersController extends Controller
-{
+{  
+ 
     public function index() 
   {
 		$ord = DB::select('select * from orders');
@@ -14,15 +17,19 @@ class OrdersController extends Controller
 		print_r($res);
 	}
 
-  public function insert(Request $request) 
+  public function insert($uid,$fnm,$qty) 
   {  
-    $usnm=$request->input('uname');
-    $fnm=$request->input('fname');
-    $qty=$request->input('qty');
-    $amt=$request->input('amt');
-    $prc=$request->input('price');
-    DB::insert('insert into orders (uname,fname,quantity ,price,amount) values(?,?,?,?,?)',[$usnm,$fnm,$qty,$amt,$prc]);
-    echo "Record inserted successfully.<br/>";
+      $res=DB::select('select uname from users');
+      $obj=json_encode($res,true); //echo $character->name 
+      echo $obj;
+      //$obj2 = json_decode($obj);
+      //print_r($obj2->{'uname'}); // 
+
+// image_header
+     
+      //$amt=$qty*$pr;
+    //DB::insert('insert into orders (uname,fname,quantity ,price,amount) values(?,?,?,?,?)',[$unm,$fnm,$qty,$prc,$amt]);
+   // echo "Record inserted successfully.<br/>";
   }
 
   public function show($id)
@@ -32,21 +39,20 @@ class OrdersController extends Controller
     print_r($res);
    }
 
-  public function edit(Request $request,$id) 
+  public function edit($oid,$fname,$qty,$amt) 
   {
-    $usnm=$request->input('uname');
-    $fnm=$request->input('fname');
-    $qty=$request->input('qty');
-    $amt=$request->input('amt');
-    $prc=$request->input('price');
-    DB::update('update orders set uname = ?, fname = ?,quantity = ?, price=?  , amount = ? where id = ?',[$usnm,$fnm,$qty,$prc,$amt,$id]);
+    $fnm=$fname;
+    $qty=$qty;
+    $amt=$amt;
+    $prc=$qty*$amt;
+    DB::update('update orders set  fname = ?,quantity = ?, price=?  , amount = ? where ordid = ?',[$fnm,$qty,$prc,$amt,$oid]);
     echo "Record updated successfully.<br/>";
   }
 
 
-   public function destroy(Request $request,$id) 
+   public function destroy($id) 
   {
-    DB::delete('delete * from food where id = ?',[$id]);
+    DB::delete('delete from orders where ordid = ?',[$id]);
     echo "Record deleted successfully.<br/>";
   }
 }

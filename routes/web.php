@@ -26,11 +26,17 @@ Route::get('/delfood/{fid}','FoodController@destroy');
 
 
 Route::get('/OrdersController','OrdersController@index');
-Route::get('/OrdersController/{fid}','OrdersController@show');
-Route::get('/OrdersController1/{uname}/{fname}/{quantity}/{price}/{amount}','OrdersController@insert');
-Route::put('/OrdersController/{fid}','OrdersController@edit');
-Route::delete('/OrdersController/{fid}','OrdersController@destroy');
 
+Route::get('/OrdersController/{fid}','OrdersController@show');
+
+Route::get('/newOrder/{uid}/{fnm}/{qty}','OrdersController@insert');
+
+Route::get('/orderedit/{oid}/{fname}/{qty}/{amt}','OrdersController@edit');
+//http://127.0.0.1:8000/orderedit/1/dosa/1/45
+
+
+Route::get('/orderdel/{fid}','OrdersController@destroy');
+//http://127.0.0.1:8000/orderdel/1
 
 Route::get('/UserController','UserController@index');
 Route::get('/UserController/{uname}/{phone}/{location}','UserController@insert');
