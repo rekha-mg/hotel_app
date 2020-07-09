@@ -11,43 +11,36 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 class FoodController extends Controller
 {
-  
-	public function index() 
-  {
-		$foodd = DB::select('select * from food');
-		$res=json_encode($foodd,true);
-		print_r($res);
+
+
+	public function showAll(Request $request){
+    $limit = $request->query('limit',3);
+    $foodd = DB::select('select * from food limit ?',[$limit]);
+    return response()->json($foodd, 200);
 	}
 
-  public function insert($nm,$pr) 
-  {  
-    //print_r($request->input('fname'));
-   // $prc=$request->input('price');Request $request
-  // print_r("hello ".$nm." ".$pr);
-    DB::insert('insert into food (fname,price) values(?,?)',[$nm,$pr]);
-    echo "Record inserted successfully.<br/>";
+  public function insert(Request $request) {   
+    $food_name = $request->input('food_name');
+    $food_price = $request->input('food_price');
+    $resp = DB::insert('insert into food (fname,price) values(?,?)',[$food_name,$food_price]);
+    return response()->json($resp, 201);
   }
 
-  public function show($id)
-  {
-    $foodd = DB::select('select * from food where fid = ?',[$id]);
-    $res=json_encode($foodd,true);
-    print_r($res);
-   }
-
-  public function edit($nm,$pr,$id) 
-  {
-   // $name = $request->input('fname');
-   // $prc=$request->input('price');
-    print_r("hello ".$nm." ".$pr);
-   DB::update('update food set fname = ?, price=? where fid = ?',[$nm,$pr,$id]);
-  echo "Record updated successfully.<br/>";
+  public function showOne(Request $request, $food_id){
+    $foodd = DB::select('select * from food where fid = ?', [$food_id]);
+    return response()->json($foodd, 201);
   }
 
+  public function edit(Request $request, $food_id) {
+    $food_name = $request->input('food_name');
+    $food_price = $request->input('food_price');
 
-   public function destroy(Request $request,$id) 
-  {
-    DB::delete('delete  from food where fid = ?',[$id]);
-    echo "Record deleted successfully.<br/>";
+    $resp = DB::update('update food set fname = ?, price=? where fid = ?',[$food_name, $food_price, $food_id]);
+    return response()->json($resp, 201);
+  }
+
+  public function deleteFood(Request $request, $food_id) {
+    $resp = DB::delete('delete from food where fid = ?',[$food_id]);
+    return response()->json($resp, 201);
   }
 } 

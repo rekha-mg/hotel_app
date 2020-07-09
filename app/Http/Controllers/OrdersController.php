@@ -19,11 +19,14 @@ class OrdersController extends Controller
 
   public function insert($uid,$fnm,$qty) 
   {  
-      $res=DB::select('select uname from users');
+      $res=DB::select('select uname from users where uid= ?',[$uid]);
       $obj=json_encode($res,true); //echo $character->name 
       echo $obj;
       //$obj2 = json_decode($obj);
       //print_r($obj2->{'uname'}); // 
+
+     // $amt=$qty*$prc;
+      //$obj->['uname'];
 
 // image_header
      
@@ -32,15 +35,21 @@ class OrdersController extends Controller
    // echo "Record inserted successfully.<br/>";
   }
 
-  public function show($id)
+  /*public function show($id)
   {
     $ord = DB::select('select * from orders where ordid = ?',[$id]);
     $res=json_encode($ord,true);
     print_r($res);
-   }
+   }*/
+  public function show(Request $req, $order_id){
+   // $form_input= $req->all();
+    //$query_input = $req->query();
+    //$ord = DB::select('select * from orders where ordid = ?',[$id]);
+    //$res=json_encode($ord,true);
+    return response()->json($req->all(), 201);
+  }
 
-  public function edit($oid,$fname,$qty,$amt) 
-  {
+  public function edit($oid,$fname,$qty,$amt){
     $fnm=$fname;
     $qty=$qty;
     $amt=$amt;

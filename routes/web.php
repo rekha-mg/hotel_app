@@ -14,20 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
-//Route::get('/FoodController','FoodController@index');
-Route::get('/FoodController/{fid}','FoodController@show');
-Route::get('/newfood/{nm}/{pr}','FoodController@insert');
-//http://127.0.0.1:8000/newfood/parota/70
-Route::get('/itemedit/{fid}/{nm}/{pr}','FoodController@edit');
-//http://127.0.0.1:8000/itemedit/idli/50/2
-Route::get('/delfood/{fid}','FoodController@destroy');
-//http://127.0.0.1:8000/delfood/3
-// All these four  route  (line 18,19,21,23) are working with get ...delete,put,post is not working 
+
+
+Route::get('/food','FoodController@showAll');
+Route::get('/food/{fid}','FoodController@showOne');
+Route::post('/food','FoodController@insert');
+Route::patch('/food/{food_id}','FoodController@edit');
+Route::delete('/food/{food_id}','FoodController@deleteFood');
 
 
 Route::get('/OrdersController','OrdersController@index');
 
-Route::get('/OrdersController/{fid}','OrdersController@show');
+Route::put('/order/{order_id}','OrdersController@show');
 
 Route::get('/newOrder/{uid}/{fnm}/{qty}','OrdersController@insert');
 
