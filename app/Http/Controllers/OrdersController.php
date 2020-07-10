@@ -7,55 +7,46 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\food;
 use DB;
-class OrdersController extends Controller
-{  
- 
-    public function index() 
-  {
-		$ord = DB::select('select * from orders');
-		$res=json_encode($ord,true);
-		print_r($res);
-	}
 
-  public function insert($uid,$fnm,$qty) 
-  {  
-      $res=DB::select('select uname from users where uid= ?',[$uid]);
-      $obj=json_encode($res,true); //echo $character->name 
-      echo $obj;
-      //$obj2 = json_decode($obj);
-      //print_r($obj2->{'uname'}); // 
+class OrdersController extends Controller{  
 
-     // $amt=$qty*$prc;
-      //$obj->['uname'];
-
-// image_header
-     
-      //$amt=$qty*$pr;
-    //DB::insert('insert into orders (uname,fname,quantity ,price,amount) values(?,?,?,?,?)',[$unm,$fnm,$qty,$prc,$amt]);
-   // echo "Record inserted successfully.<br/>";
+  public function showAll(Request $request){
+    $limit = $request->query('limit',3);
+    $order_list = DB::select('select * from orders limit ?',[$limit]);
+    return response()->json($order_list, 200);
   }
 
-  /*public function show($id)
-  {
-    $ord = DB::select('select * from orders where ordid = ?',[$id]);
-    $res=json_encode($ord,true);
-    print_r($res);
-   }*/
-  public function show(Request $req, $order_id){
-   // $form_input= $req->all();
-    //$query_input = $req->query();
-    //$ord = DB::select('select * from orders where ordid = ?',[$id]);
-    //$res=json_encode($ord,true);
-    return response()->json($req->all(), 201);
+  public function showOne(Request $req, $order_id){
+    $orders_list = DB::select('select * from orders where ordid = ?',[$order_id]);
+    return response()->json($orders_list, 201);
   }
 
-  public function edit($oid,$fname,$qty,$amt){
-    $fnm=$fname;
-    $qty=$qty;
-    $amt=$amt;
-    $prc=$qty*$amt;
-    DB::update('update orders set  fname = ?,quantity = ?, price=?  , amount = ? where ordid = ?',[$fnm,$qty,$prc,$amt,$oid]);
-    echo "Record updated successfully.<br/>";
+  public function insert(Request $request) {   
+    $user_id = $request->input('user_id');
+    $food_name = $request->input('food_name');
+    $price =DB::select('select price from food where fname = ?',$food_name);
+
+    $food_quantity = $request->input('food_quantity');
+    $total_amt=$price*$food_quantity;
+    $user_name=DB::select('select * from uname where uid = ?',[$user_id]);
+
+    $resp = DB::insert('insert into orders values (uname,fname,quantity,price,amount) values (?, ? ,? ,? ,?)',[$user_name,$food_name,$food_name,$quantity,$price,$total_amt]);
+    return response()->json($resp, 201);
+  }
+   
+
+  public function edit(Request $request,$order_id){
+    $food_name = $request->input('fname');
+    $quantity = $request->input('$quantity');
+    $res = DB::select('select price from food where fname = ?',[$food_name]);
+    $res2 =json_encode($res);
+   // print_r($res2);
+    $requestObject=json_decode($res2,true);
+   // $price=$requestObject["price"];
+    $price = $requestObject[0]["price"];
+    $total_amt = $quantity * $price;
+    $resp = DB::update('update orders set  fname = ?, quantity = ?, price=?  , amount = ? where ordid = ?',[$food_name,$quantity,$price,$total_amt,$order_id]);
+   return response()->json($resp, 201);
   }
 
 
