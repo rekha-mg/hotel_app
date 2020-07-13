@@ -27,11 +27,11 @@ Route::get('/Orders','OrdersController@showAll');
 Route::get('/Orders/{order_id}','OrdersController@showOne');
 Route::post('/Orders','OrdersController@insert');
 Route::patch('/Orders/{order_id}','OrdersController@edit');
+Route::delete('/orderdel/{fid}','OrdersController@destroy');
 
-
-Route::get('/orderdel/{fid}','OrdersController@destroy');
-//http://127.0.0.1:8000/orderdel/1
 
 Route::get('/Users','UserController@showAll');
 Route::get('/Users/{user_id}','UserController@show');
 Route::post('/Users','UserController@insert');
+Route::patch('/Users/{user_id}','UserController@edit');
+Route::delete('/Users/{user_id}','UserController@destroy');

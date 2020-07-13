@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\food;
 use DB;
-
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+$responseObj = new stdClass();
+
 class FoodController extends Controller
 {
-
 
 	public function showAll(Request $request){
     $limit = $request->query('limit',3);
@@ -27,14 +26,13 @@ class FoodController extends Controller
   }
 
   public function showOne(Request $request, $food_id){
-    $foodd = DB::select('select * from food where fid = ?', [$food_id]);
+    $foodd = DB::select('select * from food where fid = ?',[$food_id]);
     return response()->json($foodd, 201);
   }
 
   public function edit(Request $request, $food_id) {
     $food_name = $request->input('food_name');
     $food_price = $request->input('food_price');
-
     $resp = DB::update('update food set fname = ?, price=? where fid = ?',[$food_name, $food_price, $food_id]);
     return response()->json($resp, 201);
   }

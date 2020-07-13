@@ -18,7 +18,6 @@ class UserController extends Controller{
 
 public function show(Request $req, $user_id){
     $user_list = DB::select('select * from users where uid = ?',[$user_id]);
-    //$res=json_encode($ord,true);
     return response()->json($user_list, 201);
   }
 	public function insert(Request $request){
@@ -28,6 +27,15 @@ public function show(Request $req, $user_id){
     $resp = DB::insert('insert into users (uname,phone,location) values (?,?,?)',[$user_name,$phone_num,$location]);
     return response()->json($resp, 201);
   }
+  public function edit(Request $request,$user_id){
+    $phone = $request->input('phone');
+    $location = $request->input('location');
+    $resp = DB::update('update users set  phone = ?, location = ? where uid = ?',[$phone,$location,$user_id]);
+    return response()->json($resp, 201);
+  }
 
-
+  public function destroy($id) {
+    DB::delete('delete from users where uid = ?',[$id]);
+    echo "Record deleted successfully.<br/>";
+  }
 }
