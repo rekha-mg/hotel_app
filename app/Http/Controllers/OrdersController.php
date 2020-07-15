@@ -19,7 +19,6 @@ class OrdersController extends Controller{
   public function showAll(Request $request){
     Log::info('Display all orders: ');
     $limit = $request->query('limit',3);
-
     $order_list = DB::select('select * from orders limit ?',[$limit]);
     return $this->sendResponse($order_list, 'request completed',200);
     }
