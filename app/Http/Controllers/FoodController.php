@@ -11,8 +11,7 @@ $responseObj = new stdClass();
 
 class FoodController extends Controller
 {
-
-	public function showAll(Request $request){
+	 public function showAll(Request $request){
     $limit = $request->query('limit',3);
     $foodd = DB::select('select * from food limit ?',[$limit]);
     return response()->json($foodd, 200);

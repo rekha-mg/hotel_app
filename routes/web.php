@@ -27,7 +27,7 @@ Route::get('/Orders','OrdersController@showAll');
 Route::get('/Orders/{order_id}','OrdersController@showOne');
 Route::post('/Orders','OrdersController@insert');
 Route::patch('/Orders/{order_id}','OrdersController@edit');
-Route::delete('/orderdel/{fid}','OrdersController@destroy');
+Route::delete('Orders/{order_id}','OrdersController@destroy');
 
 
 Route::get('/Users','UserController@showAll');
