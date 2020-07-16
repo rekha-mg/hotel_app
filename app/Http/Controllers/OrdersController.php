@@ -70,12 +70,22 @@ class OrdersController extends Controller{
     try{
         $user_id = $request->input('uid');
         $food_name = $request->input('fname');
-        $price =DB::select('select price from food where fname = ?',[$food_name]);
-        log::info('during editing got price: '.$price);
+        $res =DB::select('select price from food where fname = ?',[$food_name]);
+        log::info('during editing got price: '.$food_name .'='.$res[0]->price );
+        $price=$res[0]->price;
         $food_quantity = $request->input('quantity');
         $total_amt=$price * $food_quantity;
-        $user_name=DB::select('select * from uname where uid = ?',[$user_id]);
-        $resp = DB::insert('insert into orders values (uname,fname,quantity,price,amount) values (?, ? ,? ,? ,?)',[$user_name,$food_name,$food_name,$quantity,$price,$total_amt]);
+        $res_name=DB::select('select uname from users where uid = ?',[$user_id]);
+        $user_name=$res_name[0]->uname;
+        if(is_null($user_name)){
+        log::info('user_id id does not exist: '.user_id );
+        return $this->sendResponse($user_id, 'does not exist',500);
+        } 
+        else{
+        $resp = DB::insert('insert into orders (uname,fname,quantity,price,amount) values (?, ? ,? ,? ,?)',[$user_name,$food_name,$food_quantity,$price,$total_amt]);
+         log::info('orders edited by : '.$user_name);
+        }
+       
       }
         catch(\PDOException $pex){
         Log::critical('some error: '. print_r($pex->getMessage(),true)); //xampp off
@@ -84,12 +94,12 @@ class OrdersController extends Controller{
         catch(\Exception $e){
         Log::critical('some error: '. print_r($e->getMessage(),true));
         Log::critical('error line: '. print_r($e->getLine(),true));
-        return $this->sendResponse("", 'some error in server',500);
+        log::info('during editing got price: '.$food_name .'='.$res[0]->price );
         }
      }  else{
         return $this->sendResponse("", 'some error in input',500);
         }  
-        return $this->sendResponse($order_list, 'request completed',200);
+        return $this->sendResponse($user_name, 'Ur order is placed',200);
    }
 
   public function edit(Request $request,$order_id){
@@ -102,8 +112,8 @@ class OrdersController extends Controller{
         Log::info('got price of food : '.$res[0]->price);
         $total_amt = $quantity * $price;
         $resp = DB::update('update orders set  fname = ?, quantity = ?, price=?  , amount = ? where ordid = ?',[$food_name,$quantity,$price,$total_amt,$order_id]);
-          
-        }  catch(\PDOException $pex){
+       } 
+        catch(\PDOException $pex){
         Log::critical('some error: '. print_r($pex->getMessage(),true)); //xampp off
         return $this->sendResponse("",'error related to database',500);
         }catch (\Exception $e) {
@@ -111,11 +121,12 @@ class OrdersController extends Controller{
         Log::critical('error line: '. print_r($e->getLine(),true));
         return $this->sendResponse("", 'some error in server',500); 
         } 
-      
-    } else {
+       }
+        else {
         Log::warning('input data missing'.print_r($request->all(), true));
         return $this->sendResponse("", 'fname or quantity missing',401); 
-    }   Log::info('updated order : '.$order_id);
+        }
+        Log::info('updated order : '.$order_id);
         return $this->sendResponse("", 'updated successfully',201); 
   }
 
