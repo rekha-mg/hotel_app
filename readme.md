@@ -1,5 +1,5 @@
 ### Food Ordering Project
-- This project is about ordering food using this app.
+- This project is about ordering food . I have used api Laravel. 
 - The user has to register by giving his details - Name ,Phone number  and  Location. These are stored inside database in "users" table.
 - The  Food items are stored in table "Food". It has food_id,food_name and price fields.
 - The Orders user placed are stored in "orders" table. Ih has the order_id,user_name,food_name,quantity,price and amount fields.
@@ -19,7 +19,7 @@
 ### To display all users details
 -get http://127.0.0.1:8000/Users
 
-### To display any one user deatils - pass user_id in url
+### To display any one user details - pass user_id in url
 -get http://127.0.0.1:8000/Users/2
 ### To insert user details pass user_name,phone,location .Userid is auto generated.
 -post http://127.0.0.1:8000/Users -
