@@ -23,13 +23,13 @@
 -get http://127.0.0.1:8000/Users/2
 ### To insert user details pass user_name,phone,location .Userid is auto generated.
 -post http://127.0.0.1:8000/Users -
-      user_name  -   geeta
-      Phone      -   9908767621
-      location   -  kr street mysore
+      [user_name  -   geeta]
+      [Phone      -   9908767621]
+      [location   -  kr street mysore]
 ### To delete user details from database
 -delete http://127.0.0.1:8000/Users/2
 
-###Here is Routes URL with Verb of order Controller:
+### Here is Routes URL with Verb of order Controller:
 
 ##### To display all order details
 -get http://127.0.0.1:8000/orders
@@ -38,8 +38,23 @@
 -get http://127.0.0.1:8000/orders/2
 ##### To insert order details pass user_name,food_name, quantity,price .Userid is auto generated and amount is calculated by quantity and price of food ordered.
 -post http://127.0.0.1:8000/orders -
-      user_id   -   2
-      food_name -  Dosa
-      quantity  -  3
+      [user_id   -   2]
+      [food_name -  Dosa]
+      [quantity  -  3]
 ##### To delete order details from database
 -delete http://127.0.0.1:8000/orders/2
+
+
+### Here is Routes URL with Verb of food Controller:
+
+##### To display all food details
+-get http://127.0.0.1:8000/food
+
+##### To display any one food deatils - pass food_id in url
+-get http://127.0.0.1:8000/food/2
+##### To insert food details pass food_name,price .food_id is auto generated.
+-post http://127.0.0.1:8000/food -
+      [food_name -  Dosa]
+      [price -  50.00]
+##### To delete food details from database
+-delete http://127.0.0.1:8000/food/2
