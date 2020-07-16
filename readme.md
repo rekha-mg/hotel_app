@@ -26,6 +26,9 @@
       [user_name  -   geeta]
       [Phone      -   9908767621]
       [location   -  kr street mysore]
+
+### To edit the user details 
+  -patch  http://127.0.0.1:8000/Users/2    
 ### To delete user details from database
 -delete http://127.0.0.1:8000/Users/2
 
@@ -41,6 +44,8 @@
       [user_id   -   2]
       [food_name -  Dosa]
       [quantity  -  3]
+### To edit the order details 
+  -patch  http://127.0.0.1:8000/orders/2  
 ### To delete order details from database
 -delete http://127.0.0.1:8000/orders/2
 
@@ -56,5 +61,7 @@
 -post http://127.0.0.1:8000/food -
       [food_name -  Dosa]
       [price -  50.00]
+### To edit the food details 
+  -patch  http://127.0.0.1:8000/food/2  
 ### To delete food details from database
 -delete http://127.0.0.1:8000/food/2
