@@ -31,30 +31,30 @@
 
 ### Here is Routes URL with Verb of order Controller:
 
-##### To display all order details
+### To display all order details
 -get http://127.0.0.1:8000/orders
 
-##### To display any one order deatils - pass user_id in url
+### To display any one order deatils - pass user_id in url
 -get http://127.0.0.1:8000/orders/2
-##### To insert order details pass user_name,food_name, quantity,price .Userid is auto generated and amount is calculated by quantity and price of food ordered.
+### To insert order details pass user_name,food_name, quantity,price .Userid is auto generated and amount is calculated by quantity and price of food ordered.
 -post http://127.0.0.1:8000/orders -
       [user_id   -   2]
       [food_name -  Dosa]
       [quantity  -  3]
-##### To delete order details from database
+### To delete order details from database
 -delete http://127.0.0.1:8000/orders/2
 
 
 ### Here is Routes URL with Verb of food Controller:
 
-##### To display all food details
+### To display all food details
 -get http://127.0.0.1:8000/food
 
-##### To display any one food deatils - pass food_id in url
+### To display any one food deatils - pass food_id in url
 -get http://127.0.0.1:8000/food/2
-##### To insert food details pass food_name,price .food_id is auto generated.
+### To insert food details pass food_name,price .food_id is auto generated.
 -post http://127.0.0.1:8000/food -
       [food_name -  Dosa]
       [price -  50.00]
-##### To delete food details from database
+### To delete food details from database
 -delete http://127.0.0.1:8000/food/2
