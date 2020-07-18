@@ -70,6 +70,7 @@ class OrdersController extends Controller{
     try{
         $user_id = $request->input('uid');
         $food_name = $request->input('fname');
+        DB::beginTransaction();
         $res =DB::select('select price from food where fname = ?',[$food_name]);
         log::info('during editing got price: '.$food_name .'='.$res[0]->price );
         $price=$res[0]->price;
@@ -84,19 +85,23 @@ class OrdersController extends Controller{
         else{
         $resp = DB::insert('insert into orders (uname,fname,quantity,price,amount) values (?, ? ,? ,? ,?)',[$user_name,$food_name,$food_quantity,$price,$total_amt]);
          log::info('orders edited by : '.$user_name);
+          DB::commit();
         }
        
       }
         catch(\PDOException $pex){
         Log::critical('some error: '. print_r($pex->getMessage(),true)); //xampp off
+        DB::rollBack();
         return $this->sendResponse("",'error related to database',500);
         }
         catch(\Exception $e){
         Log::critical('some error: '. print_r($e->getMessage(),true));
         Log::critical('error line: '. print_r($e->getLine(),true));
         log::info('during editing got price: '.$food_name .'='.$res[0]->price );
+        DB::rollBack();
         }
      }  else{
+        DB::rollBack();
         return $this->sendResponse("", 'some error in input',500);
         }  
         return $this->sendResponse($user_name, 'Ur order is placed',200);
@@ -107,22 +112,27 @@ class OrdersController extends Controller{
       try{
         $food_name = $request->input('fname');
         $quantity = $request->input('quantity');
+        DB::beginTransaction();
         $res = DB::select('select price from food where fname = ?',[$food_name]);
         $price = $res[0]->price;
         Log::info('got price of food : '.$res[0]->price);
         $total_amt = $quantity * $price;
         $resp = DB::update('update orders set  fname = ?, quantity = ?, price=?  , amount = ? where ordid = ?',[$food_name,$quantity,$price,$total_amt,$order_id]);
+        DB::commit();
        } 
         catch(\PDOException $pex){
         Log::critical('some error: '. print_r($pex->getMessage(),true)); //xampp off
+        DB::rollBack();
         return $this->sendResponse("",'error related to database',500);
         }catch (\Exception $e) {
         Log::critical('some error: '. print_r($e->getMessage(),true));
         Log::critical('error line: '. print_r($e->getLine(),true));
+         DB::rollBack();
         return $this->sendResponse("", 'some error in server',500); 
         } 
        }
         else {
+        DB::rollBack();
         Log::warning('input data missing'.print_r($request->all(), true));
         return $this->sendResponse("", 'fname or quantity missing',401); 
         }
