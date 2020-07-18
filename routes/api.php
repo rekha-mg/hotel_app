@@ -27,6 +27,9 @@ Route::get('/zomoto/food', function () {
     return view('food');
 });
 
+Route::get('/zomoto/first', function () {
+    return view('first');
+});
 Route::get('/food','FoodController@showAll');
 Route::get('/food/{fid}','FoodController@showOne');
 Route::post('/food','FoodController@insert');
