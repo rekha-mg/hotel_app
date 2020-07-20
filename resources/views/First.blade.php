@@ -16,14 +16,19 @@
   				 }
 
 		</style>
-	<body>
+		<script type="text/javascript">
+			function loadImage() {
+  			alert("Image is loaded");
+			}
+</script>
+	<body onload="loadImage()">
 		
 		<section class="signin"  id="signin">
 		<div class="container">
 			@yield('content')
 			<h3> ZOMOTO </h3>
 			<div id="logincheck">
-				<form name="login" action="/api/user/login" method="post"> 
+				<form name="login" action="/api/user/login" method="post" onload="loadImage()"> 
 					 <a href="#signup" class="signup-image-link">Create an account</a>
 					<table>
 						<tr>

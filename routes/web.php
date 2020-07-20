@@ -19,3 +19,8 @@ Route::get('/zomoto', function () {
 Route::get('/zomoto/food', function () {
     return view('food');
 });
+
+Route::get('/ajax',function() {
+   return view('message');
+});
+Route::post('/getmsg','AjaxController@index');

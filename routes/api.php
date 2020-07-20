@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/zomoto', function () {
-    return view('welcome');
+    return view('message');
 });
 
 
@@ -30,6 +30,8 @@ Route::get('/zomoto/food', function () {
 Route::get('/zomoto/first', function () {
     return view('first');
 });
+
+
 Route::get('/food','FoodController@showAll');
 Route::get('/food/{fid}','FoodController@showOne');
 Route::post('/food','FoodController@insert');
