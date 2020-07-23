@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
 
-    public function sendResponse($result, $message, $response_code)
+    public function sendResponse($success,$result, $message, $response_code)
     {
         $response = [
             'success' => true,
@@ -34,13 +34,13 @@ class UserController extends Controller
             }
         } catch (\PDOException $pex) {
             Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-            return $this->sendResponse("", 'error related to database', 500);
+            return $this->sendResponse("false","", 'error related to database', 500);
         } catch (\Exception $e) {
             Log::critical('some error: ' . print_r($e->getMessage(), true));
             Log::critical('error line: ' . print_r($e->getLine(), true));
-            return $this->sendResponse("", 'some error in server', 500);
+            return $this->sendResponse("false","", 'some error in server', 500);
         }
-        return $this->sendResponse($user_list, 'request completed', 200);
+        return $this->sendResponse("true",$user_list, 'request completed', 200);
 
     }
 
@@ -52,16 +52,16 @@ class UserController extends Controller
                 $user_details = DB::select('select * from users where uid = ?', [$user_id]);
             } catch (\PDOException $pex) {
                 Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-                return $this->sendResponse("", 'error related to database', 500);
+                return $this->sendResponse("false","", 'error related to database', 500);
             } catch (\Exception $e) {
                 Log::critical('some error: ' . print_r($e->getMessage(), true));
                 Log::critical('error line: ' . print_r($e->getLine(), true));
-                return $this->sendResponse("", 'some error in server', 500);
+                return $this->sendResponse("false","", 'some error in server', 500);
             }
         } else {
-            return $this->sendResponse("", 'some error in user id', 500);
+            return $this->sendResponse("false","", 'some error in user id', 500);
         }
-        return $this->sendResponse($user_details, 'request completed', 200);
+        return $this->sendResponse("true",$user_details, 'request completed', 200);
     }
 
     public function insert(Request $request)
@@ -75,17 +75,17 @@ class UserController extends Controller
                 Log::info('Inserted new user: ' . $user_name);
             } catch (\PDOException $pex) {
                 Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-                return $this->sendResponse("", 'error related to database', 500);
+                return $this->sendResponse("false","", 'error related to database', 500);
             } catch (\Exception $e) {
                 Log::critical('some error: ' . print_r($e->getMessage(), true));
                 Log::critical('error line: ' . print_r($e->getLine(), true));
-                return $this->sendResponse("", 'some error in server', 500);
+                return $this->sendResponse("false","", 'some error in server', 500);
             }
         } else {
             Log::warning('input data missing' . print_r($request->input('uname'), true));
             return $this->sendResponse("", 'incorrect request', 500); //wrong field name
         }
-        return $this->sendResponse($resp, 'data insereted successfully', 201);
+        return $this->sendResponse("true",$resp, 'data insereted successfully', 201);
     }
 
     public function edit(Request $request, $user_id)
@@ -98,18 +98,18 @@ class UserController extends Controller
                     $resp = DB::update('update users set  phone = ?, location = ? where uid = ?', [$phone, $location, $user_id]);
                 } catch (\PDOException $pex) {
                     Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-                    return $this->sendResponse("", 'error related to database', 500);
+                    return $this->sendResponse("false","", 'error related to database', 500);
                 } catch (\Exception $e) {
                     Log::critical('some error: ' . print_r($e->getMessage(), true));
                     Log::critical('error line: ' . print_r($e->getLine(), true));
-                    return $this->sendResponse("", 'some error in server', 500);
+                    return $this->sendResponse("false","", 'some error in server', 500);
                 }
             }
         } else {
-            return $this->sendResponse("", 'some error in input', 500);
+            return $this->sendResponse("false","", 'some error in input', 500);
         }
         Log::info('Updated user deatils: ' . $user_id);
-        return $this->sendResponse($resp, 'data updated', 200);
+        return $this->sendResponse("true",$resp, 'data updated', 200);
 
     }
 
@@ -122,16 +122,16 @@ class UserController extends Controller
 
             } catch (\PDOException $pex) {
                 Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-                return $this->sendResponse("", 'error related to database', 500);
+                return $this->sendResponse("false","", 'error related to database', 500);
             } catch (\Exception $e) {
                 Log::critical('some error: ' . print_r($e->getMessage(), true));
                 Log::critical('error line: ' . print_r($e->getLine(), true));
-                return $this->sendResponse("", 'some error in server', 500);
+                return $this->sendResponse("false","", 'some error in server', 500);
             }
         } else {
-            return $this->sendResponse("", 'some error in input', 500);
+            return $this->sendResponse("false","", 'some error in input', 500);
         }
-        return $this->sendResponse($resp, 'request completed', 200);
+        return $this->sendResponse("true",$resp, 'request completed', 200);
     }
 
 }

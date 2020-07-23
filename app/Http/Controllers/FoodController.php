@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Log;
 
 class FoodController extends Controller
 {
-    public function sendResponse($result, $message, $response_code)
+    public function sendResponse($success,$result, $message, $response_code)
     {
         $response = [
-            'success' => true,
+            'success' => $success,
             'data'    => $result,
             'message' => $message,
         ];
@@ -38,9 +38,9 @@ class FoodController extends Controller
         } catch (\Exception $e) {
             Log::critical('some error: ' . print_r($e->getMessage(), true));
             Log::critical('error line: ' . print_r($e->getLine(), true));
-            return $this->sendResponse("", 'some error in server', 500);
+            return $this->sendResponse("false","", 'some error in server', 500);
         }
-        return $this->sendResponse($food_list, 'request completed', 200);
+        return $this->sendResponse("true",$food_list, 'request completed', 200);
     }
 
     public function insert(Request $request)
@@ -62,9 +62,9 @@ class FoodController extends Controller
             }
         } else {
             Log::warning('input data missing' . print_r($request->input('fname'), true));
-            return $this->sendResponse("", 'incorrect request', 500); //wrong field name
+            return $this->sendResponse("false","", 'incorrect request', 500); //wrong field name
         }
-        return $this->sendResponse($resp, 'data insereted successfully', 201);
+        return $this->sendResponse("true",$resp, 'data insereted successfully', 201);
     }
 
     public function showOne(Request $request, $food_id)
@@ -80,12 +80,12 @@ class FoodController extends Controller
             } catch (\Exception $e) {
                 Log::critical('some error: ' . print_r($e->getMessage(), true));
                 Log::critical('error line: ' . print_r($e->getLine(), true));
-                return $this->sendResponse("", 'some error in server', 500);
+                return $this->sendResponse("false","", 'some error in server', 500);
             }
         } else {
-            return $this->sendResponse("", 'some error in food id <20', 500);
+            return $this->sendResponse("false","", 'some error in food id <20', 500);
         }
-        return $this->sendResponse($food_detail, 'request completed', 200);
+        return $this->sendResponse("true",$food_detail, 'request completed', 200);
     }
 
     public function edit(Request $request, $food_id)
@@ -99,18 +99,18 @@ class FoodController extends Controller
                     $resp = DB::update('update food set fname = ?, price=? where fid = ?', [$food_name, $food_price, $food_id]);
                 } catch (\PDOException $pex) {
                     Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-                    return $this->sendResponse("", 'error related to database', 500);
+                    return $this->sendResponse("false","", 'error related to database', 500);
                 } catch (\Exception $e) {
                     Log::critical('some error: ' . print_r($e->getMessage(), true));
                     Log::critical('error line: ' . print_r($e->getLine(), true));
-                    return $this->sendResponse("", 'some error in server', 500);
+                    return $this->sendResponse("false","", 'some error in server', 500);
                 }
             }
         } else {
-            return $this->sendResponse("", 'some error in input', 500);
+            return $this->sendResponse("false","", 'some error in input', 500);
         }
         Log::info('Updated Food Item: ' . $food_id);
-        return $this->sendResponse($resp, 'data updated', 200);
+        return $this->sendResponse("true",$resp, 'data updated', 200);
 
     }
 
@@ -123,15 +123,15 @@ class FoodController extends Controller
 
             } catch (\PDOException $pex) {
                 Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-                return $this->sendResponse("", 'error related to database', 500);
+                return $this->sendResponse("false","", 'error related to database', 500);
             } catch (\Exception $e) {
                 Log::critical('some error: ' . print_r($e->getMessage(), true));
                 Log::critical('error line: ' . print_r($e->getLine(), true));
-                return $this->sendResponse("", 'some error in server', 500);
+                return $this->sendResponse("false","", 'some error in server', 500);
             }
         } else {
-            return $this->sendResponse("", 'some error in input', 500);
+            return $this->sendResponse("false","", 'some error in input', 500);
         }
-        return $this->sendResponse($resp, 'request completed', 200);
+        return $this->sendResponse("true",$resp, 'request completed', 200);
     }
 }
