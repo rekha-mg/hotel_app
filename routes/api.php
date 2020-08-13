@@ -21,8 +21,8 @@ Route::get('/zomoto', function () {
     return view('message');
 });
 
-Route::get('/zomoto/food', function () {
-    return view('food');
+Route::get('/zomoto/food2', function () {
+    return view('food2');
 });
 
 Route::get('/zomoto/first', function () {
@@ -30,6 +30,7 @@ Route::get('/zomoto/first', function () {
 });
 
 Route::get('/food', 'FoodController@showAll');
+Route::get('/food2', 'FoodController@showFood');
 Route::get('/food/{fid}', 'FoodController@showOne');
 Route::post('/food', 'FoodController@insert');
 Route::patch('/food/{food_id}', 'FoodController@edit');

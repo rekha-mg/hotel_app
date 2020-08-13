@@ -8,14 +8,34 @@
       <script>
          function getFood() {
             $.ajax({
-               type:'Get',
-               url:'/api/food',
-             //  data:'_token = <?php echo csrf_token() ?>',
-               success:function(response) {
-                  console.dir(response);
-                  $("#showFood").html(JSON.stringify(response.data[0]));
+              type:'Get',
+              url:'/api/food',
+              success:function(response) {
+              console.dir(response);
+             // $("#showFood").html(JSON.stringify(response.data[1]));
+              $('#f1').val(JSON.stringify(response.data[1].fname));
+              $('#f2').val(JSON.stringify(response.data[1].fid));
+              $('#f3').val(JSON.stringify(response.data[1].price));
                }
             });
+         };
+         function getFoodname() {
+            $.ajax({
+              type:'Get',
+              url:'/api/food2',
+              success:function(response) {
+              console.dir(response);
+              var len = response.data.length;
+
+                $("#foods").empty();
+                for( var i = 0; i<len; i++){
+                    var id = response.data[i].fid;
+                    var name = response.data[i].fname;
+                    $("#foods").append("<option value='"+id+"'>"+name+"</option>");
+             
+                  }
+                }           
+              });
          };
          function saveFood() {
          /*   $.ajax({
@@ -37,7 +57,7 @@
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
-            var raw = JSON.stringify({"fname":"ssdfd","price":123});
+            var raw = JSON.stringify({"fname":"shavige","price":45});
 
             var requestOptions = {
               method: 'POST',
@@ -54,11 +74,38 @@
       </script>
    </head>
 
-   <body>
+   <body >
       <div id = 'showFood'>This message will be replaced using Ajax.
          Click the button to replace the message.</div>
+         <br>
+          <div>
+            <table>
+              <tr> 
+                <td> select Food </td>
+                <td><select name="cars" id="foods">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                    </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Food Name: </td>
+                <td>  <input type="text" id="f1"> </td>
+              </tr>
+              <tr>
+                <td>     Food Id: </td>
+                <td>  <input type="text" id="f2"> </td>
+              </tr>
+              <tr>
+                <td>  Food Price: </td>
+                <td> <input type="text" id="f3"> </td>
+              </tr>
+            </table>
+          </div>
       <?php
-      echo Form::button('get food', ['onClick' => 'getFood()']);
+      echo Form::button('get food', ['onClick' => 'getFoodname()']);
 //echo Form::submit('Click Me!');
  ?>
 

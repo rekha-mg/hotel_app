@@ -43,6 +43,24 @@ class FoodController extends Controller
         return $this->sendResponse("true",$food_list, 'request completed', 200);
     }
 
+   public function showFood(Request $request)
+    {
+        Log::info('Displayed all food names: ');
+      
+        try {
+            
+                $food_names = DB::select('select fid,fname from food');
+            
+        } catch (\PDOException $pex) {
+            Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
+            return $this->sendResponse("", 'error related to database', 500);
+        } catch (\Exception $e) {
+            Log::critical('some error: ' . print_r($e->getMessage(), true));
+            Log::critical('error line: ' . print_r($e->getLine(), true));
+            return $this->sendResponse("false","", 'some error in server', 500);
+        }
+        return $this->sendResponse("true",$food_names, 'request completed', 200);
+    }
     public function insert(Request $request)
     {
         if ($request->has('fname') && $request->has('price')) {
