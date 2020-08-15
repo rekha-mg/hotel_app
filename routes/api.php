@@ -25,6 +25,9 @@ Route::get('/zomoto/food2', function () {
     return view('food2');
 });
 
+Route::get('/zomoto/food/{fid}', function () {
+    return view('food/{fid}');
+});
 Route::get('/zomoto/first', function () {
     return view('first');
 });

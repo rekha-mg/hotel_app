@@ -101,7 +101,7 @@ class FoodController extends Controller
                 return $this->sendResponse("false","", 'some error in server', 500);
             }
         } else {
-            return $this->sendResponse("false","", 'some error in food id <20', 500);
+            return $this->sendResponse("false","", 'some error in food id must be <20', 500);
         }
         return $this->sendResponse("true",$food_detail, 'request completed', 200);
     }
