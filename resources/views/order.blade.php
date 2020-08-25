@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-<script defer src="https://pro.fontawesome.com/releases/v5.10.0/js/all.js" integrity="sha384-G/ZR3ntz68JZrH4pfPJyRbjW+c0+ojii5f+GYiYwldYU69A+Ejat6yIfLSxljXxD" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -50,25 +48,13 @@
 }
 </style>
 <script type="text/javascript">
-      var items = [];
-       window.onload=getFood;
 
-
-      function onAddCardClick(i){
-        console.log(i);
-        items.push(i);
-        //document.location.href='/vishvesh/order/'+i;
-      }
-
-      function onCartClick(){
-        document.location.href='/vishvesh/order/'+items.join(',');
-      }
-
+      window.onload=getFoodDetails;
            
-			function getFood() {
+      function getFoodDetails() {
         $.ajax({
         type:'Get',
-        url:'/api/food/',
+        url:'/api/food/'+{{$fid}},
         success:function(response) {
         console.dir(response);
         var len = response.data.length;
@@ -80,7 +66,6 @@
           out+='<h1>'+ response.data[i].fname +'</h1>';
           out+='<p class="price">'+response.data[i].price+'</p>';
           out+='<p>'+response.data[i].Description+'</p>';
-          out+='<p><button onClick=onAddCardClick("'+ response.data[i].fid+'") name="i">Add to Cart</button></p>';
           out+='</div>';
           $('.row').append(out);
           }
@@ -99,11 +84,6 @@
   
     <div>
         <h1>HOTEL VISHVESH </h1>
-
-        <div onClick=onCartClick()>
-          <i class="fas fa-cart-plus"></i> (number of items 1,2,3) $items.length
-        </div>
-
      </div>
     <div class="row">
    
@@ -113,3 +93,4 @@
 
 </body>
 </html>
+

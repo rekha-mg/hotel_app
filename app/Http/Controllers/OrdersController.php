@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 class OrdersController extends Controller
 {
 
-    public function sendResponse($success,$result, $message, $response_code)
+    public function sendResponse($success, $result, $message, $response_code)
     {
         $response = [
             'success' => true,
@@ -16,6 +16,13 @@ class OrdersController extends Controller
             'message' => $message,
         ];
         return response()->json($response, $response_code);
+    }
+
+    public function postFromUI(Request $request, $fid)
+    {
+        Log::info('Display all orders: ' . $fid);
+        //fetch food deatils.
+        return view('order', ['fid' =>  $fid]);
     }
 
     public function showAll(Request $request)
@@ -33,17 +40,16 @@ class OrdersController extends Controller
             }
         } catch (\PDOException $pex) {
             Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-            return $this->sendResponse("false","", 'error related to database', 500);
+            return $this->sendResponse("false", "", 'error related to database', 500);
         } catch (\Exception $e) {
             Log::critical('some error: ' . print_r($e->getMessage(), true));
             Log::critical('error line: ' . print_r($e->getLine(), true));
             return $this->sendResponse("", 'some error in server', 500);
         }
-        return $this->sendResponse("true",$order_list, 'request completed', 200);
-
+        return $this->sendResponse("true", $order_list, 'request completed', 200);
     }
 
-    public function showOne(Request $req,$order_id)
+    public function showOne(Request $req, $order_id)
     {
         if ($order_id > 0 && $order_id < 20) {
             try {
@@ -51,16 +57,16 @@ class OrdersController extends Controller
                 $orders_list = DB::select('select * from orders where ordid = ?', [$order_id]);
             } catch (\PDOException $pex) {
                 Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-                return $this->sendResponse("false","", 'error related to database', 500);
+                return $this->sendResponse("false", "", 'error related to database', 500);
             } catch (\Exception $e) {
                 Log::critical('some error: ' . print_r($e->getMessage(), true));
                 Log::critical('error line: ' . print_r($e->getLine(), true));
-                return $this->sendResponse("false","", 'some error in server', 500);
+                return $this->sendResponse("false", "", 'some error in server', 500);
             }
         } else {
-            return $this->sendResponse("false","", 'some error in order_id', 500);
+            return $this->sendResponse("false", "", 'some error in order_id', 500);
         }
-        return $this->sendResponse("true",$orders_list, 'request completed', 200);
+        return $this->sendResponse("true", $orders_list, 'request completed', 200);
     }
 
     public function insert(Request $request)
@@ -79,17 +85,16 @@ class OrdersController extends Controller
                 $user_name     = $res_name[0]->uname;
                 if (is_null($user_name)) {
                     log::info('user_id id does not exist: ' . user_id);
-                    return $this->sendResponse("false",$user_id, 'does not exist', 500);
+                    return $this->sendResponse("false", $user_id, 'does not exist', 500);
                 } else {
                     $resp = DB::insert('insert into orders (uname,fname,quantity,price,amount) values (?, ? ,? ,? ,?)', [$user_name, $food_name, $food_quantity, $price, $total_amt]);
                     log::info('orders edited by : ' . $user_name);
                     DB::commit();
                 }
-
             } catch (\PDOException $pex) {
                 Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
                 DB::rollBack();
-                return $this->sendResponse("false","", 'error related to database', 500);
+                return $this->sendResponse("false", "", 'error related to database', 500);
             } catch (\Exception $e) {
                 Log::critical('some error: ' . print_r($e->getMessage(), true));
                 Log::critical('error line: ' . print_r($e->getLine(), true));
@@ -98,9 +103,9 @@ class OrdersController extends Controller
             }
         } else {
             DB::rollBack();
-            return $this->sendResponse("false","", 'some error in input', 500);
+            return $this->sendResponse("false", "", 'some error in input', 500);
         }
-        return $this->sendResponse("true",$user_name, 'Ur order is placed', 200);
+        return $this->sendResponse("true", $user_name, 'Ur order is placed', 200);
     }
 
     public function edit(Request $request, $order_id)
@@ -124,15 +129,15 @@ class OrdersController extends Controller
                 Log::critical('some error: ' . print_r($e->getMessage(), true));
                 Log::critical('error line: ' . print_r($e->getLine(), true));
                 DB::rollBack();
-                return $this->sendResponse("false","", 'some error in server', 500);
+                return $this->sendResponse("false", "", 'some error in server', 500);
             }
         } else {
             DB::rollBack();
             Log::warning('input data missing' . print_r($request->all(), true));
-            return $this->sendResponse("false","", 'fname or quantity missing', 401);
+            return $this->sendResponse("false", "", 'fname or quantity missing', 401);
         }
         Log::info('updated order : ' . $order_id);
-        return $this->sendResponse("true","", 'updated successfully', 201);
+        return $this->sendResponse("true", "", 'updated successfully', 201);
     }
 
     public function destroy($order_id)
@@ -142,16 +147,16 @@ class OrdersController extends Controller
                 $res = DB::delete('delete from orders where ordid = ?', [$order_id]);
             } catch (\PDOException $pex) {
                 Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
-                return $this->sendResponse("false","", 'error related to database', 500);
+                return $this->sendResponse("false", "", 'error related to database', 500);
             } catch (\Exception $e) {
                 Log::critical('some error: ' . print_r($e->getMessage(), true));
                 Log::critical('error line: ' . print_r($e->getLine(), true));
-                return $this->sendResponse("false","", 'some error in server', 500);
+                return $this->sendResponse("false", "", 'some error in server', 500);
             }
         } else {
-            return $this->sendResponse("false","", 'incorrect order id', 500);
+            return $this->sendResponse("false", "", 'incorrect order id', 500);
         }
         Log::info('deleted  order : ' . $order_id);
-        return $this->sendResponse("true","", 'deleted successfully', 201);
+        return $this->sendResponse("true", "", 'deleted successfully', 201);
     }
 }
