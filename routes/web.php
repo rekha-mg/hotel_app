@@ -11,21 +11,26 @@
 |
  */
 
-Route::get('/zomoto', function () {
+/*Route::get('/zomoto', function () {
     return view('welcome');
 });
+*/
 
-Route::get('/zomoto/food', function () {
-    return view('food');
+Route::get('/vishvesh', function () {
+    return view('main');
 });
+
+Route::get('/vishvesh/order/{fid}', 'OrdersController@postFromUI');
+
+/*Route::get('/vishvesh/order/{fid}', function () {
+    return view('order', ['fid' =>  $fid]);
+});*/
 
 Route::get('/ajax', function () {
     return view('message');
 });
 
-Route::get('/one', function () {
-    return view('main');
-});
+
 
 Route::get('/trail', function () {
     return view('sample');
