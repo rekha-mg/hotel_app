@@ -22,12 +22,12 @@ class FoodController extends Controller
     public function showAll(Request $request)
     {
         Log::info('Displayed all food items: ');
-        $limit = $request->query('limit', 3);
+        $limit = $request->query('limit', 10);
         try {
             $res = DB::select('select count(*) as total from food');
             Log::info('Total number of food items ' . $res[0]->total);
             $total_food_items = $res[0]->total;
-            if ($total_food_items > $limit) {
+            if ($total_food_items > $limit && $limit >0 ) {
                 $food_list = DB::select('select * from food limit ?', [$limit]);
             } else {
                 $food_list = DB::select('select * from food');

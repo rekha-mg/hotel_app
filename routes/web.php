@@ -22,4 +22,12 @@ Route::get('/zomoto/food', function () {
 Route::get('/ajax', function () {
     return view('message');
 });
+
+Route::get('/one', function () {
+    return view('main');
+});
+
+Route::get('/trail', function () {
+    return view('sample');
+});
 Route::post('/getmsg', 'AjaxController@index');
