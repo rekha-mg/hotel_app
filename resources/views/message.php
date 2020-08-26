@@ -75,7 +75,6 @@
                 body: raw,
                 redirect: 'follow'
               };
-
               fetch("http://127.0.0.1:8000/api/food", requestOptions)
                 .then(response =>alert(response.text()))
                 .then(result => console.log(result))

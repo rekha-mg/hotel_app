@@ -9,10 +9,10 @@
 		function createCard(cardData) {
   var cardTemplate = [
     '<div class="card">',
-    '<p>My name is: ',
+    '<p>',
     cardData.Name || 'No name provided',
     '</p>',
-    '<p>My job is: ',
+    '<p> ',
     cardData.Job || 'No job provided',
     '</p></div>'
   ];

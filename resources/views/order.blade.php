@@ -49,17 +49,27 @@
 </style>
 <script type="text/javascript">
 
-      window.onload=getFoodDetails;
+     //window.onload=getFoodDetails;
+     window.onload=getList;
            
-      function getFoodDetails() {
+      function getList(){
+        //alert(window.location.href.split(',').length );
+        var arrlen=window.location.href.split(',').length;
+      const params = window.location.href;
+      var rest = params.substring(0, params.lastIndexOf("/") + 1);
+      var last = params.substring(params.lastIndexOf("/") + 1, params.length);
+      const words = last.split(',');
+      }
+     /* function getFoodDetails() {
         $.ajax({
         type:'Get',
-        url:'/api/food/'+{{$fid}},
+        url:'/api/food/',
         success:function(response) {
         console.dir(response);
         var len = response.data.length;
         var out,i;
-        //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_product_card
+       // alert(response.data);
+       
         for(i=0;i<len;i++){
           out='<div class="col"  style="background-color:lavender;">.col</div>';
           out='<div class="card">';
@@ -73,22 +83,18 @@
         }
           
       });
-   };
-
-           
+   };*/
 </script>
 </head>
 <body>
-
 <div class="container-fluid">
-  
-    <div>
-        <h1>HOTEL VISHVESH </h1>
-     </div>
-    <div class="row">
+  <div>
+    <h1>HOTEL VISHVESH </h1>
+  </div>
+  <div class="row">
    
     
-    </div>
+  </div>
   </div>
 
 </body>

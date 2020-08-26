@@ -51,6 +51,7 @@
 </style>
 <script type="text/javascript">
       var items = [];
+      var total_items;
        window.onload=getFood;
 
 
@@ -58,10 +59,18 @@
         console.log(i);
         items.push(i);
         //document.location.href='/vishvesh/order/'+i;
-      }
+        total_items=items.length;
+         document.getElementById("num").innerHTML = total_items;
+
+        
+        } 
+      
 
       function onCartClick(){
-        document.location.href='/vishvesh/order/'+items.join(',');
+       // document.location.href='/vishvesh/order/'+items.join('-');
+        document.location.href='/vishvesh/order/'+items;
+        //alert(total_items);
+
       }
 
            
@@ -96,19 +105,22 @@
 <body>
 
 <div class="container-fluid">
+  <div>
+  <h1> HOTEL VISHVESH</h1>
   
-    <div>
-        <h1>HOTEL VISHVESH </h1>
+  <div class="row">
+    <div class="col-sm-10" style="background-color:lavender;">
+    </div>
+    <div class="col-sm-2" style="background-color:lavenderblush;"><div  onClick=onCartClick()>
+          <i  class="fas fa-cart-plus"> </i> <span id="num" > </span> 
+        </div></div>
+  </div>
 
-        <div onClick=onCartClick()>
-          <i class="fas fa-cart-plus"></i> (number of items 1,2,3) $items.length
-        </div>
+        
+        
 
      </div>
-    <div class="row">
-   
     
-    </div>
   </div>
 
 </body>
