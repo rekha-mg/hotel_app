@@ -137,8 +137,8 @@
               return a + b;
               }, 0);
           
-              document.getElementById("bill").innerHTML = sum;
-             
+              //document.getElementById("bill").innerHTML = sum;
+              $('#bill').append(sum);
         }
 
       });
@@ -153,33 +153,35 @@
                 }
     
 };
+
+
+function insertOrder(){
+  $.ajax({
+      type:'Post',
+      url:'/api/food/'+i,
+}
 </script>
 </head>
 <body>
 <div class="container-fluid">
   <div>
-    <h1>HOTEL VISHVESH </h1>
+        <h1>HOTEL VISHVESH </h1>
   </div>
-      <div class="row" id="items_name">
-      
-      </div>
-
-      
-  </div>
-
-<hr>
-
-      <div class="row" >
-      <div class="col-sm-4" id="item_name"> </div>
-      <div class="col-sm-4" id="item_qty">  </div>
-      <div class="col-sm-4" id="item_cost">  </div>
-      <footer>
-        <div class="row">
-          <div class="col-sm-4"> </div>
-          <div class="col-sm-8"> Total Amount= <span id="bill" > </span> </div>
-          </div>
+    <div class="row" id="items_name">
+    </div>
+        <hr>
+        <div class="row" >
+          <div class="col-sm-4" id="item_name"> </div>
+          <div class="col-sm-4" id="item_qty">  </div>
+          <div class="col-sm-4" id="item_cost">  </div>
         </div>
-      </footer>
+        
+          <div class="row" >
+            <div class="col-sm-8"> </div>
+            <div class="col-sm-4"><p id="bill" >  <input type="submit"  value="Place Order"> Total Amount  </p>  </div>
+          </div>
+</div> 
+          
 </body>
 </html>
 
