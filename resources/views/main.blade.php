@@ -61,8 +61,7 @@
         //document.location.href='/vishvesh/order/'+i;
         total_items=items.length;
          document.getElementById("num").innerHTML = total_items;
-
-        
+               
         } 
       
 
@@ -82,6 +81,7 @@
         console.dir(response);
         var len = response.data.length;
         var out,i;
+        console.log("length of response"+len);
         //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_product_card
         for(i=0;i<len;i++){
           out='<div class="col"  style="background-color:lavender;">.col</div>';
