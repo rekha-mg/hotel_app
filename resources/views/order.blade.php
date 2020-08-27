@@ -128,17 +128,15 @@
                 tot_amt.push(price);
                 $('#item_cost').append(out_cost);
                 }
-                
-                
-                
+                          
 
               tot_amt = tot_amt.map(Number);
               var sum = tot_amt.reduce(function(a, b){
               return a + b;
               }, 0);
           
-              //document.getElementById("bill").innerHTML = sum;
-              $('#bill').append(sum);
+              document.getElementById("bill").innerHTML = sum;
+              //$('#bill').append(sum);
         }
 
       });
@@ -153,13 +151,6 @@
                 }
     
 };
-
-
-function insertOrder(){
-  $.ajax({
-      type:'Post',
-      url:'/api/food/'+i,
-}
 </script>
 </head>
 <body>
@@ -177,8 +168,8 @@ function insertOrder(){
         </div>
         
           <div class="row" >
-            <div class="col-sm-8"> </div>
-            <div class="col-sm-4"><p id="bill" >  <input type="submit"  value="Place Order"> Total Amount  </p>  </div>
+            <div class="col-sm-6"> </div>
+            <div class="col-sm-6"><p id="bill" >  <input type="submit"  value="Place Order"> Total Amount  </p>  </div>
           </div>
 </div> 
           
