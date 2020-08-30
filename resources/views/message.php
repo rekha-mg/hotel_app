@@ -15,13 +15,11 @@
             });
 
            function getFood() {
-            
-              $.ajax({
+                $.ajax({
                 type:'Get',
                 url:'/api/food/'+foodid,
                 success:function(response) {
                 console.dir(response);
-               // $("#showFood").html(JSON.stringify(response.data[1]));
                 $('#f1').empty();
                 $('#f1').val(JSON.stringify(response.data[0].fname));
                 $('#f2').val(JSON.stringify(response.data[0].fid));
