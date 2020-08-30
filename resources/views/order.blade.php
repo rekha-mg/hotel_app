@@ -49,48 +49,130 @@
 </style>
 <script type="text/javascript">
 
-      window.onload=getFoodDetails;
-           
-      function getFoodDetails() {
-        $.ajax({
-        type:'Get',
-        url:'/api/food/'+{{$fid}},
-        success:function(response) {
-        console.dir(response);
-        var len = response.data.length;
-        var out,i;
-        //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_product_card
-        for(i=0;i<len;i++){
-          out='<div class="col"  style="background-color:lavender;">.col</div>';
-          out='<div class="card">';
-          out+='<h1>'+ response.data[i].fname +'</h1>';
-          out+='<p class="price">'+response.data[i].price+'</p>';
-          out+='<p>'+response.data[i].Description+'</p>';
-          out+='</div>';
-          $('.row').append(out);
-          }
-        
-        }
-          
-      });
-   };
+      window.onload=getList;
+      var words =[];
 
+      function getList(){
+        var arrlen=window.location.href.split(',').length;
+        const params = window.location.href;
+        var rest = params.substring(0, params.lastIndexOf("/") + 1);
+        var last = params.substring(params.lastIndexOf("/") + 1, params.length);
+        words= last.split(',');
+        words = words.map(Number);
+        console.log(words);  
+
+        getFoodDetails();
+      }
+
+      function getFoodDetails() {
+          var tot_amt=[]; 
+          var fid=[];
+          var arr = [];
+          var c1=c2=c3=c4=0;
+          for(let i=0;i<words.length;i++){
+              switch(words[i]){
+                 case 1:c1++;
+                         break;
+                 case 2:c2++;
+                          break;
+                 case 3:c3++;
+                          break;
+                 case 4:c4++;
+                          break;
+                  }
+             
+            }
+             if(c1>=1){
+              fid.push(1);
+              arr[1]=c1; 
+            }
+
+             if(c2>=1){
+              fid.push(2);
+              arr[2]=c2;
+            }
+             if(c3>=1){
+              fid.push(3);
+               arr[3]=c3;
+             }
+             if(c4>=1){
+              fid.push(4);
+              arr[4]=c4;
+             }
+             for(var i in arr){
+                console.log(i + "=" + arr[i] + '<br>');
+              }
+             console.log(fid)
+             //for(let i=0;i<fid.length;i++){
+               for(var i in arr){
+                $.ajax({
+                type:'Get',
+                url:'/api/food/'+i,
+                success:function(response) {
+                console.dir(response);
+                var len = response.data.length;
+                var out_name,out_cost,out_qty,j;
+                console.log(arr[i]);
+                for(j=0;j<len;j++){
+                out_name ='<table >';
+                out_name +='<tr><td>'+response.data[j].fname+'</td></tr>';
+                out_name +='<table>';
+                $('#item_name').append(out_name);
+                }
            
+                for(j=0;j<len;j++){
+                var price=response.data[j].price;
+                out_cost ='<table>';
+                out_cost +='<tr><td>'+price+'</td></tr>';
+                out_cost +='<table>';
+                tot_amt.push(price);
+                $('#item_cost').append(out_cost);
+                }
+                          
+
+              tot_amt = tot_amt.map(Number);
+              var sum = tot_amt.reduce(function(a, b){
+              return a + b;
+              }, 0);
+          
+              document.getElementById("bill").innerHTML = sum;
+              //$('#bill').append(sum);
+        }
+
+      });
+              }
+              for(var i in arr){
+                var qty=arr[i]
+                out_qty ='<table>';
+                out_qty +='<tr><td>'+qty+'</td></tr>';
+                out_qty +='<table>';
+                
+                $('#item_qty').append(out_qty);
+                }
+    
+};
 </script>
 </head>
 <body>
-
 <div class="container-fluid">
-  
-    <div>
+  <div>
         <h1>HOTEL VISHVESH </h1>
-     </div>
-    <div class="row">
-   
-    
-    </div>
   </div>
-
+    <div class="row" id="items_name">
+    </div>
+        <hr>
+        <div class="row" >
+          <div class="col-sm-4" id="item_name"> </div>
+          <div class="col-sm-4" id="item_qty">  </div>
+          <div class="col-sm-4" id="item_cost">  </div>
+        </div>
+        
+          <div class="row" >
+            <div class="col-sm-6"> </div>
+            <div class="col-sm-6"><p id="bill" >  <input type="submit"  value="Place Order"> Total Amount  </p>  </div>
+          </div>
+</div> 
+          
 </body>
 </html>
 
