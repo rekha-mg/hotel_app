@@ -48,8 +48,7 @@ Route::patch('/Orders/{order_id}', 'OrdersController@edit');
 Route::delete('Orders/{order_id}', 'OrdersController@destroy');
 
 Route::get('/Users', 'UserController@showAll');
-//Route::get('/Users/{user_id}', 'UserController@showOne');
-Route::get('/Users/{phone}', 'UserController@checkUser');
-Route::post('/Users', 'UserController@insert');
+Route::get('/Users/{user_id}', 'UserController@showOne');
+//Route::post('/Users', 'UserController@insert');
 Route::patch('/Users/{user_id}', 'UserController@edit');
 Route::delete('/Users/{user_id}', 'UserController@destroy');

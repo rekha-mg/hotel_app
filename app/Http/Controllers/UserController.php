@@ -44,12 +44,12 @@ class UserController extends Controller
 
     }
 
-    public function showOne(Request $req, $user_id)
+    public function showOne(Request $req, $ph)
     {
-        if ($user_id > 0 && $user_id < 20) {
+        if ($ph > 0 ) {
             try {
-                Log::info('Showing user details of : ' . $user_id);
-                $user_details = DB::select('select * from users where uid = ?', [$user_id]);
+                Log::info('Showing user details of : ' . $ph);
+                $user_id = DB::select('select uid from users where phone = ?', [$ph]);
             } catch (\PDOException $pex) {
                 Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
                 return $this->sendResponse("false","", 'error related to database', 500);
@@ -61,7 +61,7 @@ class UserController extends Controller
         } else {
             return $this->sendResponse("false","", 'some error in user id', 500);
         }
-        return $this->sendResponse("true",$user_details, 'request completed', 200);
+        return $this->sendResponse("true",$user_id, 'request completed', 200);
     }
 
     public function insert(Request $request)

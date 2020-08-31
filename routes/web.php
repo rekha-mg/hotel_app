@@ -20,6 +20,9 @@ Route::get('/vishvesh', function () {
     return view('main');
 });
 
+Route::get('/vishvesh/login', function () {
+    return view('login');
+});
 Route::get('/vishvesh/order/{fid}', 'OrdersController@postFromUI');
 
 /*Route::get('/vishvesh/order/{fid}', function () {
