@@ -25,53 +25,53 @@
 			var uname = document.register.username;
 			var phn =document.register.phone;
 			var loc=document.register.location;
-      var formData =JSON.stringify({'uname':uname.value,'phone':phn.value,'location':loc.value});
-     // console.log(formData);
-     	$.ajax({
-     		type: 'POST',
-	   		url : '/api/Users',
-	      data : formData,
-	      dataType: "json",
-               
-	    success:function(response,status){
-	    console.log(response.statusCode);
-	     $("#result").append("hi..");
-	    	}
-	   	});
+      		var formData =JSON.stringify({'uname':uname.value,'phone':phn.value,'location':loc.value});
+	    
+	     	$.ajax({
+	     		type: 'POST',
+		   		url : '/api/Users',
+		      data : formData,
+		      dataType: "json",
+	               
+		    success:function(response,status){
+		    console.log(response.statusCode);
+		     $("#result").append("hi..");
+		    	}
+		   	});
 		};
-			
-		/*	$(document).ready(function () {  
+				
+			$(document).ready(function () {  
              $("#save").click(function () {  
-                 var person = new Object();  
-                 person.uname = $('#un').val();  
-                 person.phone = $('#phn').val(); 
-                 person.location=$('#loc').val(); 
+                 var newuser = new Object();  
+                 newuser.uname = $('#un').val();  
+                 newuser.phone = $('#phn').val(); 
+                 newuser.location=$('#loc').val(); 
                  $.ajax({  
                      url: '/api/Users',  
                      type: 'POST',  
                      dataType: 'json',  
-                     data: person,  
-                     success: function (data, textStatus, xhr) {  
-                         console.log(data);  
+                     data: newuser,  
+                     success: function (r1) {  
+                         console.log("hi");  
+
                      },  
                      error: function (xhr, textStatus, errorThrown) {  
                          console.log('Error in Operation');  
                      }  
                  });  
              });  
-         });  */
+           
 
 
-						$(document).ready(function () {  
-             $("#login").click(function () {  
-                 
-                 var phone = $('#phn').val(); 
-               
-                 $.ajax({  
+			
+             	 	$("#login").click(function () {  
+                 		var phone = $('#phn').val(); 
+                     $.ajax({  
                      url:'/api/Users/'+phone,  
                      type: 'GET',  
                      success: function (data, textStatus, xhr) {  
                          console.log(data);  
+                         document.location.href='/vishvesh';
                      },  
                      error: function (xhr, textStatus, errorThrown) {  
                          console.log('Error in Operation');  
@@ -80,6 +80,7 @@
              });  
          });  
 	</script>
+	
 	</head>
 	<body>
 		<div class="main">
@@ -94,7 +95,7 @@
 									</div>
 					
 									<div class="form-group">
-										<lable><i class="zmdi zmdi-lock"></lable><input type="text" id="phn" placeholder="Phone" required="required">
+										<lable><i class="zmdi zmdi-lock"></lable><input type="text" id="phn1" placeholder="Phone" required="required">
 									</div>
 					
 								<div>

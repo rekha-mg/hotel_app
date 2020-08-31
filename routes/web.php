@@ -33,7 +33,9 @@ Route::get('/ajax', function () {
     return view('message');
 });
 
-
+Route::get('/session/get','SessionController@accessSessionData');
+Route::get('/session/set','SessionController@storeSessionData');
+Route::get('/session/remove','SessionController@deleteSessionData');
 
 Route::get('/trail', function () {
     return view('sample');
