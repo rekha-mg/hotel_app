@@ -48,12 +48,12 @@ Route::patch('/Orders/{order_id}', 'OrdersController@edit');
 Route::delete('Orders/{order_id}', 'OrdersController@destroy');
 
 Route::get('/Users', 'UserController@showAll');
-Route::get('/Users/{user_id}', 'UserController@showOne');
+Route::get('/Users/{ph}', 'UserController@showOne');
 Route::post('/Users', 'UserController@insert');
 Route::patch('/Users/{user_id}', 'UserController@edit');
 Route::delete('/Users/{user_id}', 'UserController@destroy');
 
 
-Route::get('/session/get','SessionController@accessSessionData');
-Route::get('/session/set','SessionController@storeSessionData');
-Route::get('/session/remove','SessionController@deleteSessionData');
+Route::get('/session/get', 'SessionController@accessSessionData');
+Route::get('/session/set', 'SessionController@storeSessionData');
+Route::get('/session/remove', 'SessionController@deleteSessionData');
