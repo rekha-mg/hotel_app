@@ -21,4 +21,9 @@ class SessionController extends Controller {
       $request->session()->forget('my_name');
       echo "Data has been removed from session.";
    }
+   public function getData(Request $require ){
+      $data=$request->input('uname');
+      $request->session()->put('uname',$data);
+   echo $request->session()->get('uname');
+   }
 }

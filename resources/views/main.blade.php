@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,7 +122,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-8" style="background-color:lavender;">
+
           <h1> HOTEL VISHVESH</h1></div>
+
         <div class="col-sm-4" style="background-color:lavender;"></div>
       </div>
 

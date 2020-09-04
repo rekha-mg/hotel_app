@@ -24,10 +24,9 @@
 	</style>
 
 	<script type="text/javascript">
-		
-		$(function() {
-		    
-		    /*var $myDiv = $("#register1");
+	
+    $(function() {
+		   /*var $myDiv = $("#register1");
 		    $myDiv.hide();*/
 		    
 			$("#sign-up").click(function(argument) {
@@ -35,7 +34,7 @@
 				$("#login1").hide();
 			});
 
-			$("#login").click(function () {  
+      $("#login").click(function () {  
 	     		var phone = $('#phn1').val(); 
 	     		console.log(phone);
 				if(phone) {
@@ -63,7 +62,7 @@
 				}
 	        });  
 
-			$("#save").click(function () {  
+ 		  $("#save").click(function () {  
 				console.log("on click....");  
 				var newuser = {};  
 				newuser.uname = $('#un').val();  
@@ -113,20 +112,17 @@
 					<lable>Username</lable>	
 					<input type="text" id="lgnname" placeholder="Your Name" required="required" />
 				</div>
-
 				<div class="form-group">
 					<lable>Phone</lable>
 					<input type="text" id="phn1" 
 						   placeholder="Phone" 
 						   required="required">
 				</div>
-
 				<div>
 					<input type="submit" id="login"/>
 				</div>
 				<a id="sign-up" href="" >Create an account</a>
-		
-			</div>
+				</div>
 		</div>
 
 		<div id="register1" class="row">

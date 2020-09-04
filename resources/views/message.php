@@ -20,6 +20,7 @@
                 url:'/api/food/'+foodid,
                 success:function(response) {
                 console.dir(response);
+                console.log(response);
                 $('#f1').empty();
                 $('#f1').val(JSON.stringify(response.data[0].fname));
                 $('#f2').val(JSON.stringify(response.data[0].fid));

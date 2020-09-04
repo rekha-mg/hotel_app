@@ -23,6 +23,10 @@ Route::get('/vishvesh', function () {
 Route::get('/vishvesh/login', function () {
     return view('login');
 });
+
+Route::get('/vishvesh/order', function () {
+    return view('order');
+});
 Route::get('/vishvesh/order/{fid}', 'OrdersController@postFromUI');
 
 /*Route::get('/vishvesh/order/{fid}', function () {
@@ -33,6 +37,7 @@ Route::get('/ajax', function () {
     return view('message');
 });
 
+Route::post('/loginn','SessionController@getData');
 Route::get('/session/get','SessionController@accessSessionData');
 Route::get('/session/set','SessionController@storeSessionData');
 Route::get('/session/remove','SessionController@deleteSessionData');
