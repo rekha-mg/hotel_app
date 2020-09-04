@@ -68,7 +68,6 @@ class UserController extends Controller
     {
         if ($request->has('uname') && $request->has('phone') && $request->has('location')) {
             $user_name = $request->input('uname');
-            $request->session()->put('uname', $user_name);
             $phone_num = $request->input('phone');
             $location  = $request->input('location');
             try {

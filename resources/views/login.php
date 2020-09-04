@@ -127,7 +127,7 @@
 							Result 
 						</div>
 						<div class="form-group form-button">
-							<input type="submit"  id="save" />
+							<input type="submit" id="save" />
 						</div>
 					</div>
 				</div>

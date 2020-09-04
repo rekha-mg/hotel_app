@@ -54,3 +54,6 @@ Route::patch('/Users/{user_id}', 'UserController@edit');
 Route::delete('/Users/{user_id}', 'UserController@destroy');
 
 
+Route::get('/session/get','SessionController@accessSessionData');
+Route::get('/session/set','SessionController@storeSessionData');
+Route::get('/session/remove','SessionController@deleteSessionData');
