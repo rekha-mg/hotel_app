@@ -69,7 +69,7 @@ class OrdersController extends Controller
         return $this->sendResponse("true", $orders_list, 'request completed', 200);
     }
 
-    public function insert(Request $request)
+  /*  public function insert(Request $request)
     {
         if ($request->has('uid') && $request->has('fname')) {
             try {
@@ -106,7 +106,38 @@ class OrdersController extends Controller
             return $this->sendResponse("false", "", 'some error in input', 500);
         }
         return $this->sendResponse("true", $user_name, 'Ur order is placed', 200);
+    }*/
+
+    public function insert(Request $request)
+    {
+        if ( $request->has('userid') && $request->has('amount') ) {
+            try {
+                    $user_id   = $request->input('userid');
+                    $amt = $request->input('amount');
+                    DB::beginTransaction();
+                    $resp = DB::insert('insert into orders (userid,amount) values (? ,?)', [$user_id,$amt]);
+                    log::info('ordered by : ' . $user_id);
+                    DB::commit();
+                }
+            
+            catch (\PDOException $pex) {
+                Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
+                DB::rollBack();
+                return $this->sendResponse("false", "", 'error related to database', 500);
+            }catch (\Exception $e) {
+                Log::critical('some error: ' . print_r($e->getMessage(), true));
+                Log::critical('error line: ' . print_r($e->getLine(), true));
+                log::info('during inserting : ' . $u_id .$amt);
+                DB::rollBack();
+            }
+        } else {
+            DB::rollBack();
+            return $this->sendResponse("false", "", 'some error in input', 500);
+        }
+        return $this->sendResponse("true", $user_id, 'Ur order is placed', 200);
     }
+
+
 
     public function edit(Request $request, $order_id)
     {

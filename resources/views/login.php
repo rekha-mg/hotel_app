@@ -20,26 +20,7 @@
    
 	</style>
 	<script type="text/javascript">
-		function up(){
-			alert("jdjd");
-			var uname = document.register.username;
-			var phn =document.register.phone;
-			var loc=document.register.location;
-      		var formData =JSON.stringify({'uname':uname.value,'phone':phn.value,'location':loc.value});
-	    
-	     	$.ajax({
-	     		type: 'POST',
-		   		url : '/api/Users',
-		      data : formData,
-		      dataType: "json",
-	               
-		    success:function(response,status){
-		    console.log(response.statusCode);
-		     $("#result").append("hi..");
-		    	}
-		   	});
-		};
-				
+		
 			$(document).ready(function () {  
              $("#save").click(function () {  
                  var newuser = new Object();  
@@ -52,7 +33,7 @@
                      dataType: 'json',  
                      data: newuser,  
                      success: function (r1) {  
-                         console.log("hi");  
+                         console.dir(r1); 
 
                      },  
                      error: function (xhr, textStatus, errorThrown) {  
@@ -65,17 +46,19 @@
 
 			
              	 	$("#login").click(function () {  
+             	 		var usernm=$('#lgnname').val();
                  		var phone = $('#phn').val(); 
-                     $.ajax({  
-                     url:'/api/Users/'+phone,  
-                     type: 'GET',  
-                     success: function (data, textStatus, xhr) {  
-                         console.log(data);  
-                         document.location.href='/vishvesh';
-                     },  
-                     error: function (xhr, textStatus, errorThrown) {  
-                         console.log('Error in Operation');  
-                     }  
+	                     $.ajax({  
+	                     url:'/api/Users/'+phone,  
+	                     type: 'GET',  
+	                     //data:usernm;
+	                     success: function (response) {  
+	                        document.location.href='/vishvesh';
+	                     	// console.log(JSON.stringify(response.data[0] ));
+	                     },  
+	                     error: function (xhr, textStatus, errorThrown) {  
+	                         console.log('Error in Operation');  
+	                     }  
                  });  
              });  
          });  
@@ -91,7 +74,7 @@
 				
 								<form name="signin" action="" method="">
 									<div class="form-group">	
-										<label> <i class="zmdi zmdi-account material-icons-name"></i></label> <input type="text" id="lgnname" placeholder="Your Name" required="required" />
+										<label> <i class="zmdi zmdi-account material-icons-name"></i></label> <input type="text" id="lgnname" name="lgnname" placeholder="Your Name" required="required" />
 									</div>
 					
 									<div class="form-group">

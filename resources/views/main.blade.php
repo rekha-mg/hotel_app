@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,7 +121,7 @@
      <div class="container-fluid">
       <div class="row">
         <div class="col-sm-8" style="background-color:lavender;">
-         <h1> HOTEL VISHVESH</h1> <h3>welcome {{ Session::get('uname')}}
+         <h1> HOTEL VISHVESH</h1> <h3>welcome   {{ Session::get('uname')}}
  </h3></div>
         <div class="col-sm-4" style="background-color:lavender;"></div>
       </div>
