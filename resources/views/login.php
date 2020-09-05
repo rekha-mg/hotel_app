@@ -1,123 +1,160 @@
 <html>
+
 <head>
 	<title>Hotel  Vishvesh </title>
 	
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
-     </script>
-	<style type="text/css">
-		.signin-form{
-			padding-left: 25px;
-			padding-top: 85px;
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+    
+ 	<style type="text/css">
+
+		.container-mycard {
+			margin: 30px;
+		    padding: 40px;
+		    border: 1px solid #d2d7da;
+		    background-color: #c0d9ea;
+		    box-shadow: 5px 20px 30px #b1b1e0;
 		}
 
-		.signup-form{
+		.signup-form {
 			 padding-left: 25px;
 			 padding-top: 450px;
 		}
-
-
-   
 	</style>
+
 	<script type="text/javascript">
-		
-			$(document).ready(function () {  
-             $("#save").click(function () {  
-                 var newuser = new Object();  
-                 newuser.uname = $('#un').val();  
-                 newuser.phone = $('#phn').val(); 
-                 newuser.location=$('#loc').val(); 
-                 $.ajax({  
-                     url: '/api/Users',  
-                     type: 'POST',  
-                     dataType: 'json',  
-                     data: newuser,  
-                     success: function (r1) {  
-                         console.dir(r1); 
+	
+    $(function() {
+		   /*var $myDiv = $("#register1");
+		    $myDiv.hide();*/
+		    
+			$("#sign-up").click(function(argument) {
+				$("#register1").show();
+				$("#login1").hide();
+			});
 
-                     },  
-                     error: function (xhr, textStatus, errorThrown) {  
-                         console.log('Error in Operation');  
-                     }  
-                 });  
-             });  
-           
+      $("#login").click(function () {  
+	     		var phone = $('#phn1').val(); 
+	     		console.log(phone);
+				if(phone) {
+					$.ajax({  
+						url:'/api/Users/'+phone,  
+						type: 'GET',  
+						success: function (response, textStatus, xhr) {  
+							if(response && response.data && response.data.length == 1) {
+								alert("Login successfull :" + response.data[0].uid);
+								document.location.href='/vishvesh';
+							} else {
+								alert("Login didnt happen");
+							}
+						},  
+						error: function (response, textStatus, errorThrown) {  
+						 	if (response && response.responseJSON && response.responseJSON.message) {
+						 		alert(response.responseJSON.message);
+						 	} else {
+						 		alert("something wrong happened");
+						 	}
+						}  
+					});  
+				} else {
+					alert("Please fill the form before submit login.");
+				}
+	        });  
 
+ 		  $("#save").click(function () {  
+				console.log("on click....");  
+				var newuser = {};  
+				newuser.uname = $('#un').val();  
+				newuser.phone = $('#phn').val(); 
+				newuser.location=$('#loc').val(); 
 
-			
-             	 	$("#login").click(function () {  
-             	 		var usernm=$('#lgnname').val();
-                 		var phone = $('#phn').val(); 
-	                     $.ajax({  
-	                     url:'/api/Users/'+phone,  
-	                     type: 'GET',  
-	                     //data:usernm;
-	                     success: function (response) {  
-	                        document.location.href='/vishvesh';
-	                     	// console.log(JSON.stringify(response.data[0] ));
-	                     },  
-	                     error: function (xhr, textStatus, errorThrown) {  
-	                         console.log('Error in Operation');  
-	                     }  
-                 });  
-             });  
-         });  
+				$.ajax({  
+					url: '/api/Users',  
+					type: 'POST',  
+					dataType: 'json',  
+					data: newuser,  
+					success: function (response) {  
+						if(response && response.data && response.data == true) {
+							alert("Regist successfull :");
+							$("#register1").hide();
+							$("#login1").show();
+						} else {
+							alert("Login didnt happen");
+						}
+					},  
+					error: function (response, textStatus, errorThrown) {  
+						if (response && response.responseJSON && response.responseJSON.message) {
+					 		alert(response.responseJSON.message);
+					 	} else {
+					 		alert("something wrong happened");
+					 	} 
+					}  
+				});  
+		    });  
+		});
 	</script>
 	
-	</head>
-	<body>
-		<div class="main">
-			 <section class="sign-in">
-					<div class="conatiner">
-							<div class="signin-content">
-							 <div class="signin-form">
-				
-								<form name="signin" action="" method="">
-									<div class="form-group">	
-										<label> <i class="zmdi zmdi-account material-icons-name"></i></label> <input type="text" id="lgnname" name="lgnname" placeholder="Your Name" required="required" />
-									</div>
-					
-									<div class="form-group">
-										<lable><i class="zmdi zmdi-lock"></lable><input type="text" id="phn1" placeholder="Phone" required="required">
-									</div>
-					
-								<div>
-									<input type="submit" id="login"/>
-								</div>
-						<a href="#sign-up" >Create an account </a>
-					</form>
+</head>
+
+<body>
+
+	<div class="container-fluid">
+
+		<div id="header" class="row" style="height: 100px">
+		</div>
+
+		<div id="login1" class="row">
+			<div class="mx-auto container-mycard" style="margin: 30px">
+				Signin 
+			
+				<div class="form-group">	
+					<lable>Username</lable>	
+					<input type="text" id="lgnname" placeholder="Your Name" required="required" />
 				</div>
+				<div class="form-group">
+					<lable>Phone</lable>
+					<input type="text" id="phn1" 
+						   placeholder="Phone" 
+						   required="required">
+				</div>
+				<div>
+					<input type="submit" id="login"/>
+				</div>
+				<a id="sign-up" href="" >Create an account</a>
+				</div>
+		</div>
+
+		<div id="register1" class="row">
+			<div class="mx-auto container-mycard" style="margin: 30px">
+				Signup
+
+				<div class="form-group">
+					<lable>Username</lable>	
+					<input type="text" name="username" id="un" 
+						   placeholder="Your Name" required="required" />
+				</div>
+				<div class="form-group">	
+					<lable>Phone</lable>
+					<input type="text" name="phone" 
+						   placeholder="Your Phone" id="phn" 
+						   required="required" />
+				</div>
+				<div class="form-group">
+					<lable>Location</lable>
+					<input type="text" name="location" placeholder="Enter ur location" id="loc" required="required">
+				</div>
+				<div id='result'>
+					Result 
+				</div>
+
+				<div>
+					<input type="submit" id="save"  />
+				</div>
+			
 			</div>
 		</div>
-	</section>
+	</div>
+</body>
 
-
-			<div class="conatiner">
-				<section class="sign-up" id="sign-up" > </section> 
-					<div class="signup-content">
-					 <div class="signup-form">
-						<form   name="register" action="" method="" >
-						<div class="form-group">	
-							<label> <i class="zmdi zmdi-account material-icons-name"></i></label> <input type="text" name="username" id="un" placeholder="Your Name" required="required" />
-						</div>
-						<div class="form-group">	
-							<label><i class="zmdi zmdi-phone"></i></label> <input type="text" name="phone" placeholder="Your Phone" id="phn" required="required" />
-						</div>
-						<div class="form-group">
-							<lable><i class="zmdi zmdi-lock"></i></lable><input type="text" name="location" placeholder="Enter ur location" id="loc" required="required">
-						</div>
-						<div id='result'>
-							Result 
-						</div>
-						<div class="form-group form-button">
-							<input type="submit"  id="save" />
-						</div>
-					</div>
-				</div>
-					</form>
-				</div>
-		</div>
-		</div>
-
-	</body>
 </html>
