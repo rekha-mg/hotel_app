@@ -34,7 +34,6 @@
                      data: newuser,  
                      success: function (r1) {  
                          console.dir(r1); 
-
                      },  
                      error: function (xhr, textStatus, errorThrown) {  
                          console.log('Error in Operation');  
@@ -45,7 +44,7 @@
 
 
 			
-             	 	$("#login").click(function () {  
+            $("#login").click(function () {  
              	 		var usernm=$('#lgnname').val();
                  		var phone = $('#phn').val(); 
 	                     $.ajax({  

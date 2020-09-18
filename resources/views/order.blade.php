@@ -14,9 +14,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-.h1{
+h1{
    text-align: center;
-   font-family: arial;
+   background-color:pink; 
   }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -46,12 +46,17 @@
 .card button:hover {
   opacity: 0.7;
 }
+item-row{
+      border:1px black solid;
+      margin:20px;
+      text-align: center;
+}
 </style>
 <script type="text/javascript">
 
       window.onload=getList;
       var words =[];
-
+      var tot_amt=[]; var sum=0;
       function getList(){
         var arrlen=window.location.href.split(',').length;
         const params = window.location.href;
@@ -65,9 +70,9 @@
       }
 
       function getFoodDetails() {
-          var tot_amt=[]; 
+         
           var fid=[];
-          var sum=0;
+          
           var arr = [];
           var c1=c2=c3=c4=0;  var pricearr =[];
           for(let i=0;i<words.length;i++){
@@ -152,35 +157,34 @@
                 $('#item_qty').append(out_qty);
                 }
 };
-</script>
-<script type="text/javascript">
-  function orderPlaced(){
-    var cardnum=$("#cardnum").val();
-    if(cardnum == 0){
-      alert("plz fill card number");
-      $("#cardnum").focus();
-    }
-    else if(cardnum.length<10){
-      alert("card number must have 10 digit");
-      $("#cardnum").focus();
-    }
-    else
-    {    var neworder = new Object();  
-         neworder.userid = 22; 
-         neworder.amount= 230.00;
-        $.ajax({
-          type: "POST",
-          url: '/api/Orders',
-          dataType: 'json',
-          data: neworder,
-          success: function(response){
+
+          function orderPlaced(){
+            var cardnum=$("#cardnum").val();
+            if(cardnum == 0){
+              alert("plz fill card number");
+              $("#cardnum").focus();
+            }
+            else if(cardnum.length<10){
+              alert("card number must have 10 digit");
+              $("#cardnum").focus();
+            }
+            else
+            {   
+                 var neworder = new Object();  
+                 neworder.userid = 22; 
+                 neworder.amount= sum;
+                $.ajax({
+                  type: "POST",
+                  url: '/api/Orders',
+                  dataType: 'json',
+                  data: neworder,
+                  success: function(response){
               console.log(response);
               $("#orderresult").append("Your order is placed " + response.data);   
           },
           
-    });
-
-      
+      });
+     
     }
   }
 function isNumber(evt) {
@@ -201,10 +205,10 @@ function isNumber(evt) {
     <div class="row" id="items_name">
     </div>
         <hr>
-        <div class="row" >
-          <div class="col-sm-4" id="item_name">item_name </div>
-          <div class="col-sm-4" id="item_cost"> item_cost </div>
-          <div class="col-sm-4" id="item_qty"> item_qty </div>
+        <div class="row" class="item-row" >
+          <div class="col-sm-3" id="item_name">item_name </div>
+          <div class="col-sm-3" id="item_cost"> item_cost </div>
+          <div class="col-sm-3" id="item_qty"> item_qty </div>
 
         </div>
         

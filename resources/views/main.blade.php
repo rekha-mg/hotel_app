@@ -18,10 +18,18 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-.h1{
+  #top-ribbon{
+       margin-top:20px;
+       width:100%;
+       height: 40px;
+    }
+h1{
+   background-color: lightblue;
    text-align: center;
-   font-family: arial;
-  }
+   font-family: cursive;
+   width: 100%;
+   height: 70px;
+   }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 200px;
@@ -47,22 +55,30 @@
   font-size: 14px;
 }
 
+ 
 .card button:hover {
   opacity: 0.7;
 }
-.footer{
-            width: 100%; 
-            bottom: 0px; 
-            background-color: #000; 
-            color: #fff; 
-            position: absolute; 
-            padding-top:20px; 
-            padding-bottom:50px; 
-            text-align:center; 
-            font-size:30px; 
-            font-weight:bold; 
-
-}
+ #menu{
+   margin-top :60px;
+ }
+ 
+footer{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        color: white;
+        text-align: center;
+  }
+  #quote{
+       color:white;
+       direction:right;
+       width: 50%;
+       font-size: 20px;
+       text-shadow: 2px 2px #FF0000;
+  }
+ 
 </style>
 <script type="text/javascript">
       var items = [];
@@ -73,45 +89,37 @@
       function onAddCardClick(i){
         console.log(i);
         items.push(i);
-        //document.location.href='/vishvesh/order/'+i;
         total_items=items.length;
-         document.getElementById("num").innerHTML = total_items;
-               
+        document.getElementById("num").innerHTML = total_items;
         } 
-      
 
       function onCartClick(){
-       // document.location.href='/vishvesh/order/'+items.join('-');
         document.location.href='/vishvesh/order/'+items;
-        //alert(total_items);
-
       }
-
-           
+     
 			function getFood() {
         $.ajax({
-        type:'Get',
-        url:'/api/food/',
-        success:function(response) {
-        console.dir(response);
-        var len = response.data.length;
-        var out,i;
-        console.log("length of response"+len);
-        //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_product_card
-        for(i=0;i<len;i++){
-          out='<div class="col"  style="background-color:lavender;">.col</div>';
-          out='<div class="card">';
-          out+='<h2>'+ response.data[i].fname +'</h2>';
-          out+='<p class="price">'+response.data[i].price+'</p>';
-          //out+='<p>'+response.data[i].Description+'</p>';
-          out+='<p><button onClick=onAddCardClick("'+ response.data[i].fid+'") name="i">Add to Cart</button></p>';
-          out+='</div>';
-          $('#menu').append(out);
-          }
+            type:'Get',
+            url:'/api/food/',
+            success:function(response) {
+            console.dir(response);
+            var len = response.data.length;
+            var out,i;
+            console.log("length of response"+len);
+            for(i=0;i<len;i++){
+              out='<div class="col"  style="background-color:lavender;">.col</div>';
+              out='<div class="card">';
+              out+='<h2>'+ response.data[i].fname +'</h2>';
+              out+='<p class="price">'+response.data[i].price+'</p>';
+              //out+='<p>'+response.data[i].Description+'</p>';
+              out+='<p><button onClick=onAddCardClick("'+ response.data[i].fid+'") name="i">Add to Cart</button></p>';
+              out+='</div>';
+              $('#menu').append(out);
+              }
         
-        }
+            }
           
-      });
+        });
    };
 
            
@@ -119,34 +127,31 @@
 </head>
   <body >
      <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-8" style="background-color:lavender;">
-         <h1> HOTEL VISHVESH</h1> <h3>welcome   {{ Session::get('uname')}}
- </h3></div>
-        <div class="col-sm-4" style="background-color:lavender;"></div>
-      </div>
-
+      <header>
+        <h1> HOTEL VISHVESH </h1>
+      </header>
+      
+        <div class="row" id="top-ribbon">
+          <div class="col-sm-10" style="background-color:#9400D3;">   </div>
+            <div class="col-sm-2" style="background-color:#FFC0CB;">
+              <div  onClick=onCartClick()>
+               <i  class="fas fa-cart-plus"> </i> <span id="num" > </span> 
+              </div>
+            </div>
+        </div>
    
-      <div class="row" id="menu">
-        <div class="col-sm-10" style="background-color:#9400D3;">   </div>
-          <div class="col-sm-2" style="background-color:#FFC0CB;">
-            <div  onClick=onCartClick()>
-             <i  class="fas fa-cart-plus"> </i> <span id="num" > </span> 
-            </div>
-          </div>
-      </div>
-<footer>
-        <div class="row" id="last">
-        <div class="col-sm-10" style="background-color:#9400D3;">   </div>
-          <div class="col-sm-2" style="background-color:#FFC0CB;">
-            thank y
-            </div>
-          </div>
-      </div>
-</footer> 
-     </div>
-    
-  
+   
+        <div class="row" id="menu">   </div>
 
+        <footer>
+            <div class="row" id="last">
+              <div class="col-sm-10" style="background-color:#9400D3;"> <marquee id="quote">        V follow ....."Good Food Good Mood"......   </marquee>   </div>
+               <div class="col-sm-2" style="background-color:#FFC0CB;">
+                             <p style="color:blue">  Thank you... </p>
+                </div>
+              </div>
+          </div>
+        </footer> 
+     </div>
 </body>
 </html>
